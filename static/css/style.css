@@ -28,3 +28,198 @@
 .menu-left .item-complex .item-content, .menu-left .item-radio .item-content {
     background-color: transparent;
 }
+
+.bar.bar-stable {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #3f51b5;
+    overflow: hidden;
+    line-height: 0;
+    list-style: none;
+    color: #fff;
+}
+
+.bar.bar-stable .title {
+    color: #fff;
+}
+
+.bar-stable .button {
+    color: #fff;
+}
+
+.bar-stable .button.button-icon:after {
+    border-radius: 100%;
+    transition: all .4s cubic-bezier(0,.7,.5,1);
+    background: transparent;
+    transform: scale(0,0);
+    transform-origin: center center;
+}
+
+.bar-stable .button.button-icon.activated:after {
+    border-radius: 100%;
+    transition: all .4s cubic-bezier(0,.7,.5,1);
+    background: #fff;
+    transform: scale(1.5,1.5);
+    transform-origin: center center;
+}
+
+.bar-stable .button.button-icon {
+    width: 35px;
+    margin-left: -42px;
+}
+
+.button-icon.icon:before {
+    margin-left: -3px;
+}
+
+.ion-navicon-back {
+    width: 35px;
+    height: 35px;
+    margin-top: 17px;
+    margin-left: 10px;
+}
+
+.ion-navicon-back:before {
+    content: "\f10b";
+    opacity: 0;
+    font-family: Ionicons;
+    font-size: 30px;
+    transition: all .3s ease;
+    transform: rotate(180deg);
+    transform-origin: center center;
+}
+
+.menu-open .ion-navicon-back:before {
+    opacity: 1;
+    transition: all .6s ease;
+    transform: rotate(360deg);
+    transform-origin: center center;
+}
+
+.menu-open .ion-navicon:before {
+    opacity: 0;
+    transition: all .3s ease;
+    transform: rotate(180deg);
+    transform-origin: center center;
+}
+
+
+.ion-navicon:before {
+    content: "\f20e";
+    transition: all .6s ease;
+    transform: rotate(360deg);
+    transform-origin: center center;
+}
+
+.menu-open .bar-stable .button.button-icon {
+    border-radius: 100%;
+}
+
+.bar-stable .button:hover {
+    color: #fff;
+}
+
+body {
+    background: #efefef;
+}
+
+.bar.bar-stable .toggle:hover {
+    cursor: pointer;
+}
+
+.bar.bar-stable .toggle:after {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    left: 35px;
+    top: 35px;
+    opacity: 1;
+    border-radius: 100%;
+    background-color: #fff;
+    display: block;
+}
+.bar.bar-stable .toggle.anim:after {
+    transition: all 400ms cubic-bezier(0, 0.7, 0.5, 1);
+    width: 70px;
+    height: 70px;
+    left: 16px;
+    top: 2px;
+    opacity: 0;
+}
+.bar.bar-stable .toggle .arrow,
+.bar.bar-stable .toggle .menu {
+    line-height: 0;
+    float: left;
+}
+.bar.bar-stable .toggle .arrow img,
+.bar.bar-stable .toggle .menu img {
+    height: 25px;
+    transition: opacity .3s ease, transform .5s ease;
+    opacity: 1;
+}
+.bar.bar-stable .toggle .arrow .out,
+.bar.bar-stable .toggle .menu .out {
+    opacity: 0;
+    transition: opacity .3s ease, transform .5s ease;
+    transform: rotate(360deg);
+    transform-origin: center center;
+}
+.bar.bar-stable .heart,
+.bar.bar-stable .add,
+.bar.bar-stable .search,
+.bar.bar-stable .download,
+.bar.bar-stable .trash {
+    float: right;
+    line-height: 0;
+    padding-left: 1em;
+    position: relative;
+}
+.bar.bar-stable .heart img,
+.bar.bar-stable .add img,
+.bar.bar-stable .search img,
+.bar.bar-stable .download img,
+.bar.bar-stable .trash img {
+    height: 25px;
+    transition: all .5s ease;
+    opacity: 1;
+    transform: scale(1);
+}
+.bar.bar-stable .heart .hide,
+.bar.bar-stable .add .hide,
+.bar.bar-stable .search .hide,
+.bar.bar-stable .download .hide,
+.bar.bar-stable .trash .hide {
+    transition: all .5s ease;
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: center center;
+}
+.bar.bar-stable .icons-pull-right {
+    position: absolute;
+    right: 0;
+    padding-right: 2em;
+}
+.bar.bar-stable .icons-pull-left {
+    position: absolute;
+    left: 0;
+    padding-left: 2em;
+}
+.bar.bar-stable.no-trans .menu,
+.bar.bar-stable.no-trans .arrow {
+    transition: none;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+html, body, div, span, applet, object, iframe, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, u, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, fieldset, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
