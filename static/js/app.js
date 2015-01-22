@@ -30,7 +30,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	$urlRouterProvider.otherwise('/app/sessions');
 })
 
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $ionicModal, $ionicScrollDelegate, $timeout) {
 	// Form data for the login modal
 	$scope.loginData = {};
 
@@ -94,4 +94,23 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 			});
 		});
 	});
+
+	$scope.footerHeight = 0;
+	$("#toolbar").height($scope.footerHeight);
+
+	$scope.showFooter = function () {
+		var top = $ionicScrollDelegate.getScrollPosition().top;
+		$scope.bottomPosition = $('ion-content>.scroll').height() - $('ion-content').height();
+		if (top > $scope.bottomPosition - 100) {
+			$scope.footerHeight = (top - $scope.bottomPosition + 100) * 3;
+		} else {
+			$scope.footerHeight = 0;
+		}
+		if ($scope.footerHeight > 50) {
+			$(".floatingContainer").css('bottom', ($scope.footerHeight - 28) + 'px');
+		} else {
+			$(".floatingContainer").css('bottom', '22px');
+		}
+		$("#toolbar").height($scope.footerHeight);
+	};
 });
