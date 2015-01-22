@@ -101,8 +101,8 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	$scope.showFooter = function () {
 		var top = $ionicScrollDelegate.getScrollPosition().top;
 		$scope.bottomPosition = $('ion-content>.scroll').height() - $('ion-content').height();
-		if (top > $scope.bottomPosition - 100) {
-			$scope.footerHeight = (top - $scope.bottomPosition + 100) * 3;
+		if (top > $scope.bottomPosition - 120) {
+			$scope.footerHeight = (top - $scope.bottomPosition + 120) * 3;
 		} else {
 			$scope.footerHeight = 0;
 		}

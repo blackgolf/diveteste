@@ -419,6 +419,7 @@ p {
 	background-color: #1BBBFB;
 	padding: 0 16px;
 	bottom: 0;
+	box-shadow: 1px 0px 5px 2px rgba(0, 0, 0, 0.2);
 }
 
 #actions {
@@ -488,4 +489,9 @@ p {
 
 #toolbar h1, #toolbar h2, #toolbar p {
 	color: white;
+}
+
+#toolbar .tab-item {
+	color: white;
+	opacity: 1;
 }
