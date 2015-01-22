@@ -37,6 +37,7 @@
     line-height: 0;
     list-style: none;
     color: #fff;
+    box-shadow: 0px 2px 6px 3px rgba(0, 0, 0, 0.3);
 }
 
 .bar.bar-stable .title {
@@ -53,6 +54,11 @@
     background: transparent;
     transform: scale(0,0);
     transform-origin: center center;
+}
+
+.bar-stable .button.button-clear {
+    color: #fff;
+    margin-left: -35px;
 }
 
 .bar-stable .button.button-icon.activated:after {
