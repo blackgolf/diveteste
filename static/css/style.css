@@ -229,3 +229,15 @@ p {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
 }
+.dark-bg {
+    background-color: #03A9F4;
+    border-color: ;
+}
+.bar.bar-dark {
+    background-color: #03A9F4;
+    border-color: #1596d0;
+}
+.menu-left .item {
+    border-color: #1596d0;
+    color: white;
+}
