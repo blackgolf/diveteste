@@ -44,7 +44,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			if (top > bottom) {
 				$ionicScrollDelegate.scrollBottom(true);
 			}
-			console.log(top + ':' + bottom)
 		}
 	$scope.serverPath = SERVER_PATH;
 	$scope.sessions = Session.query();
