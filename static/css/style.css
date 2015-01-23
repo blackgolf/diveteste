@@ -459,6 +459,10 @@ p {
 	position: relative;
 }
 
+.notransition {
+	transition: none !important;
+}
+
 #toolbar {
 	display: block;
 	position: fixed;
