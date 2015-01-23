@@ -32,31 +32,61 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 })
 
 .controller('SessionListCtrl', function ($ionicScrollDelegate, $scope, Session, SERVER_PATH) {
+	var toolbarClose = function () {
+			$scope.noDetail = true;
+			$scope.footerHeight = 0;
+			$scope.plusBottom = '22px';
+			$scope.detailShown = false;
+		},
+		checkScrollOver = function () {
+			var top = $ionicScrollDelegate.getScrollPosition().top,
+				bottom = $('ion-content>.scroll').height() - $('ion-content').height() - 285;
+			if (top > bottom) {
+				$ionicScrollDelegate.scrollBottom(true);
+			}
+			console.log(top + ':' + bottom)
+		}
 	$scope.serverPath = SERVER_PATH;
 	$scope.sessions = Session.query();
-	$scope.footerHeight = 0;
-	$scope.noDetail = true;
-	$scope.firstChange = false;
+	toolbarClose();
 	$scope.sessions.$promise.then(function () {
 		$scope.detailSession = $scope.sessions[0];
 	});
 	$scope.toolbarheight = 95;
 	$scope.changeSession = function (session) {
-		if ($scope.detailSession === session && $scope.firstChange) {
+		if ($scope.detailSession === session && $scope.detailShown) {
 			$('#toolbar').removeClass('notransition');
 			$('.floatingContainer').removeClass('notransition');
-			$scope.noDetail = true;
-			$scope.footerHeight = 0;
-			$scope.plusBottom = '22px';
-			$scope.firstChange = false;
+			toolbarClose();
+			checkScrollOver();
 		} else {
 			$scope.noDetail = false;
 			$scope.detailSession = session;
 			$scope.footerHeight = $scope.toolbarheight * 3 + 'px';
 			$scope.plusBottom = ($scope.toolbarheight * 3 - 28) + 'px';
-			$scope.firstChange = true;
+			$scope.detailShown = true;
 		}
 	};
+	// $scope.showFooter = function (async) {
+	// 	if ($scope.noDetail && $scope.detailSession) {
+	// 		var top = $ionicScrollDelegate.getScrollPosition().top;
+	// 		$scope.bottomPosition = $('ion-content>.scroll').height() - $('ion-content').height();
+	// 		if (top > $scope.bottomPosition - 95) {
+	// 			$scope.footerHeight = (top - $scope.bottomPosition + 95) * 3;
+	// 		} else {
+	// 			$scope.footerHeight = 0;
+	// 		}
+	// 		if ($scope.footerHeight > 50) {
+	// 			$scope.plusBottom = ($scope.footerHeight - 28) + 'px';
+	// 		} else {
+	// 			$scope.plusBottom = '22px';
+	// 		}
+	// 		$scope.footerHeight += 'px';
+	// 		if (!async) {
+	// 			$scope.$apply();
+	// 		}
+	// 	}
+	// };
 
 	var startY, endY, moveY, now, down = false,
 		move = [],
@@ -88,10 +118,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.plusBottom = ($scope.toolbarheight * 3 - 28) + 'px';
 				break;
 			case 1:
-				$scope.footerHeight = 0;
-				$scope.plusBottom = '22px';
-				$scope.noDetail = true;
-				$scope.firstChange = false;
+				toolbarClose();
+				checkScrollOver();
 				break;
 			}
 			$scope.$apply();
