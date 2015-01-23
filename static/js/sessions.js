@@ -78,7 +78,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 
 	var startY, endY, moveY, now, down = false,
 		calculateSwipe = function () {
-			var gap = endY - moveY;
+			var gap = endY - startY;
 			var timegap = new Date() - now;
 			if (timegap > 0) {
 				if (gap / timegap > 0.01) {
