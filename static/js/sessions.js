@@ -48,6 +48,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			$scope.noDetail = true;
 			$scope.footerHeight = 0;
 			$scope.plusBottom = '22px';
+			$scope.firstChange = false;
 		} else {
 			$scope.noDetail = false;
 			$scope.detailSession = session;
