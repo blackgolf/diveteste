@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title></title>
 		<link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css' />
 		<script src='//cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.11/skrollr.min.js'></script>
@@ -37,22 +39,5 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<ion-nav-view></ion-nav-view>
-		<script type="text/javascript">
-			function toggleFullScreen() {
-				var doc = window.document;
-				var docEl = doc.documentElement;
-
-				var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-				var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-				if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-					requestFullScreen.call(docEl);
-				}
-				else {
-					cancelFullScreen.call(doc);
-				}
-			}
-			toggleFullScreen();
-		</script>
 	</body>
 </html>
