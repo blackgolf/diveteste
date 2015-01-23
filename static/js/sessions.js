@@ -40,6 +40,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	$scope.sessions.$promise.then(function () {
 		$scope.detailSession = $scope.sessions[0];
 	});
+	$scope.toolbarheight = 95;
 	$scope.changeSession = function (session) {
 		if (!$scope.noDetail) {
 			$scope.noDetail = true;
@@ -49,8 +50,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		} else {
 			$scope.noDetail = false;
 			$scope.detailSession = session;
-			$scope.footerHeight = 95 * 3 + 'px';
-			$scope.plusBottom = (95 * 3 - 28) + 'px';
+			$scope.footerHeight = $scope.toolbarheight * 3 + 'px';
+			$scope.plusBottom = ($scope.toolbarheight * 3 - 28) + 'px';
 			$scope.firstChange = true;
 		}
 	};
@@ -75,6 +76,38 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	// 	}
 	// };
 
+	var startY, endY, moveY, now, down = false,
+		calculateSwipe = function () {
+			var gap = endY - moveY;
+			var timegap = new Date() - now;
+			if (timegap > 0) {
+				if (gap / timegap > 0.01) {
+					swipe(1);
+				} else {
+					swipe(0);
+				};
+			}
+		},
+		swipe = function (type) {
+			switch (type) {
+			case 0:
+				$scope.footerHeight = $scope.toolbarheight * 3 + 'px';
+				$scope.plusBottom = ($scope.toolbarheight * 3 - 28) + 'px';
+				break;
+			case 1:
+				$scope.footerHeight = 0;
+				$scope.plusBottom = '22px';
+				$scope.noDetail = true;
+				break;
+			}
+			$scope.$apply();
+		},
+		toolbarMove = function () {
+			$scope.footerHeight = ($scope.toolbarheight * 3 - moveY + startY) + 'px';
+			$scope.plusBottom = ($scope.toolbarheight * 3 - 28 - moveY + startY) + 'px';
+			$scope.$apply();
+		};
+
 	$(function () {
 		$('.floatingContainer').hover(function () {
 			$('.subActionButton').addClass('display');
@@ -91,6 +124,56 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			$(this).find('.floatingText').addClass('show');
 		}, function () {
 			$(this).find('.floatingText').removeClass('show');
+		});
+
+		$('#toolbar').on('touchstart', function (e) {
+			if (!down) {
+				startY = e.originalEvent.touches[0].clientY;
+				moveY = startY;
+				down = true;
+				now = new Date();
+			}
+		});
+
+		$('#toolbar').on('mousedown', function (e) {
+			if (!down) {
+				startY = e.originalEvent.clientY;
+				moveY = startY;
+				down = true;
+				now = new Date();
+			}
+		});
+
+		$('#toolbar').on('touchmove', function (e) {
+			if (down) {
+				moveY = e.originalEvent.changedTouches[0].clientY;
+				now = new Date();
+				toolbarMove();
+			}
+		});
+
+		$('#toolbar').on('mousemove', function (e) {
+			if (down) {
+				moveY = e.originalEvent.clientY;
+				now = new Date();
+				toolbarMove();
+			}
+		});
+
+		$('#toolbar').on('touchend', function (e) {
+			if (down) {
+				endY = e.originalEvent.changedTouches[0].clientY;
+				calculateSwipe();
+				down = false;
+			}
+		});
+
+		$('#toolbar').on('mouseup', function (e) {
+			if (down) {
+				endY = e.originalEvent.clientY;
+				calculateSwipe();
+				down = false;
+			}
 		});
 	})
 })
