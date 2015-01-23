@@ -43,6 +43,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	$scope.toolbarheight = 95;
 	$scope.changeSession = function (session) {
 		if ($scope.detailSession === session && $scope.firstChange) {
+			$('#toolbar').removeClass('notransition');
+			$('.floatingContainer').removeClass('notransition');
 			$scope.noDetail = true;
 			$scope.footerHeight = 0;
 			$scope.plusBottom = '22px';
