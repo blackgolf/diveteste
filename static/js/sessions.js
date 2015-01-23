@@ -91,6 +91,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.footerHeight = 0;
 				$scope.plusBottom = '22px';
 				$scope.noDetail = true;
+				$scope.firstChange = false;
 				break;
 			}
 			$scope.$apply();
