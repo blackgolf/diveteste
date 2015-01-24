@@ -544,12 +544,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				}, 200);
 			}
 			checkScrollOut();
-			// $timeout(function () {
-			// 	$('#toolbar').hide();
-			// 	$timeout(function () {
-			// 		$('#toolbar').show();
-			// 	}, 1);
-			// }, 500);
 		});
 	})
 })
