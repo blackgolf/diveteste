@@ -35,13 +35,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	var startX, endX, moveX, startY, endY, moveY, now, down = false,
 		topCss, bottomCss, leftCss, rightCss, leftSpace, rightSpace, topSpace, bottomSpace,
 		move = [],
-		// Check if the device is portrait (true) or landscape (false)
-		portrait = function () {
-			if (window.innerHeight > window.innerWidth) {
-				return true;
-			}
-			return false;
-		},
 		// User mouse/finger position and speed to calculate the event, it can be "swipe left/right : up/down"
 		calculateSwipe = function () {
 			var widthSpace = window.innerWidth - $('#toolbar').width() - 32,
@@ -421,6 +414,13 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			});
 			detailMove();
 		};
+	// Check if the device is portrait (true) or landscape (false)
+	$scope.portrait = function () {
+		if (window.innerHeight > window.innerWidth) {
+			return true;
+		}
+		return false;
+	},
 	$scope.detailArea = {
 		'height': 0,
 		'width': 0,
@@ -435,7 +435,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		'bottom': 'auto',
 		'left': 'auto'
 	};
-	if (portrait()) {
+	if ($scope.portrait()) {
 		$scope.stick = 'bottom';
 	} else {
 		$scope.stick = 'right';
@@ -525,7 +525,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 
 		$(window).on("resize", function (event) {
 			console.log($scope.detailShown);
-			if (portrait()) {
+			if ($scope.portrait()) {
 				$scope.stick = 'bottom';
 			} else {
 				$scope.stick = 'right';
