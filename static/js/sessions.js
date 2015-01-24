@@ -524,26 +524,19 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		});
 
 		$(window).on("resize", function (event) {
-			if (!$scope.detailShown) {
+			detailClose();
+			checkScrollOut();
+			$timeout(function () {
 				$('#toolbar').hide();
 				if (portrait()) {
 					$scope.stick = 'bottom';
 				} else {
 					$scope.stick = 'right';
 				}
-				detailClose();
 				$timeout(function () {
 					$('#toolbar').show();
 				}, 1);
-			} else {
-				if (portrait()) {
-					$scope.stick = 'bottom';
-				} else {
-					$scope.stick = 'right';
-				}
-				detailOpen();
-				checkScrollOut();
-			}
+			}, 500);
 		});
 	})
 })
