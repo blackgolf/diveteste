@@ -525,11 +525,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 
 		$(window).on("resize", function (event) {
 			if (!$scope.detailShown) {
-				$('#toolbar').addClass('notransition');
-				$('.floatingContainer').addClass('notransition');
 				detailClose();
-				$('#toolbar').removeClass('notransition');
-				$('.floatingContainer').removeClass('notransition');
 			} else {
 				detailOpen();
 				checkScrollOut();
