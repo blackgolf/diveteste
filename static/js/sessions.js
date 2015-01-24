@@ -530,18 +530,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				detailOpen();
 				checkScrollOut();
 			}
-			$timeout(function () {
-				$('#toolbar').hide();
-				if (portrait()) {
-					$scope.stick = 'bottom';
-				} else {
-					$scope.stick = 'right';
-				}
-				detailClose();
-				$timeout(function () {
-					$('#toolbar').show();
-				});
-			}, 300);
 		});
 	})
 })
