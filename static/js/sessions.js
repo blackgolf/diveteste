@@ -524,12 +524,26 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		});
 
 		$(window).on("resize", function (event) {
-			if (!$scope.detailShown) {
-				detailClose();
-			} else {
-				detailOpen();
-				checkScrollOut();
-			}
+			$timeout(function () {
+				if (!$scope.detailShown) {
+					$('#toolbar').hide();
+					if (portrait()) {
+						$scope.stick = 'bottom';
+					} else {
+						$scope.stick = 'right';
+					}
+					detailClose();
+					$('#toolbar').show();
+				} else {
+					if (portrait()) {
+						$scope.stick = 'bottom';
+					} else {
+						$scope.stick = 'right';
+					}
+					detailOpen();
+					checkScrollOut();
+				}
+			}, 300);
 		});
 	})
 })
