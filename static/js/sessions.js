@@ -31,7 +31,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	return $resource(SERVER_PATH + '/sessions/:sessionId');
 })
 
-.controller('SessionListCtrl', function ($ionicScrollDelegate, $scope, Session, SERVER_PATH) {
+.controller('SessionListCtrl', function ($ionicScrollDelegate, $scope, $timeout, Session, SERVER_PATH) {
 	var startX, endX, moveX, startY, endY, moveY, now, down = false,
 		topCss, bottomCss, leftCss, rightCss, leftSpace, rightSpace, topSpace, bottomSpace,
 		move = [],
@@ -524,11 +524,19 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		});
 
 		$(window).on("resize", function (event) {
-			if (portrait()) {
-				$scope.stick = 'bottom';
-			} else {
-				$scope.stick = 'right';
-			}
+			detailClose();
+			$timeout(function () {
+				$('#toolbar').hide();
+				if (portrait()) {
+					$scope.stick = 'bottom';
+				} else {
+					$scope.stick = 'right';
+				}
+				detailClose();
+				$timeout(function () {
+					$('#toolbar').show();
+				});
+			}, 300);
 		});
 	})
 })
