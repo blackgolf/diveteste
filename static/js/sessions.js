@@ -523,7 +523,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			}
 		});
 
-		$(window).on("orientationchange", function (event) {
+		$(window).on("resize", function (event) {
 			if (portrait()) {
 				$scope.stick = 'bottom';
 			} else {
