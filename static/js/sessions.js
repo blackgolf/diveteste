@@ -531,12 +531,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$('#toolbar').removeClass('notransition');
 				$('.floatingContainer').removeClass('notransition');
 			} else {
-				$('#toolbar').addClass('notransition');
-				$('.floatingContainer').addClass('notransition');
 				detailOpen();
 				checkScrollOut();
-				$('#toolbar').removeClass('notransition');
-				$('.floatingContainer').removeClass('notransition');
 			}
 			$timeout(function () {
 				$('#toolbar').hide();
