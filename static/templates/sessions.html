@@ -14,7 +14,7 @@
 	</ion-content>
 </ion-view>
 <div class="plus-icon">
-	<div class="floatingContainer" ng-style="{bottom: plusBottom}">
+	<div class="floatingContainer" ng-style="plusPosition">
 		<div class="subActionButton person">
 			<p class="floatingText"><span class="floatingTextBG">Add Contact</span></p>
 		</div>
@@ -29,7 +29,7 @@
 	<div class="toasts"><p class="floatingText">Added Note</p></div>
 </div>
 <div id="page">
-	<div id="toolbar" ng-style="{height: footerHeight}">
+	<div id="toolbar" ng-style="detailArea">
 		<div class="item item-thumbnail-left">
 			<img src="{{serverPath}}/pics/{{detailSession.pic}}">
 			<h2>{{detailSession.title}}</h2>

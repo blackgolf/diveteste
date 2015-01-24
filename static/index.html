@@ -39,5 +39,11 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<ion-nav-view></ion-nav-view>
+		<script type="text/javascript">
+			document.body.style.height = window.screen.height+'px';
+			if(navigator.userAgent.match(/Android/i)){
+				window.scrollTo(0,1);
+			}
+		</script>
 	</body>
 </html>
