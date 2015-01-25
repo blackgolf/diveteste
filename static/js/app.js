@@ -39,7 +39,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 		$http.post('https://secure.meetup.com/oauth2/access', {
 			'client_id': '5gefnsti32oruqceedbl0q0jag',
 			'client_secret': 'ake993sske7re8q4a7qk05si0l',
-			'grant_type': '377f7676323a66183a555655375f47',
+			'grant_type': 'authorization_code',
 			'redirect_uri': 'http://128.199.146.12:5000/',
 			'code': code
 		}).
