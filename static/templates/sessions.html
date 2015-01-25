@@ -14,7 +14,7 @@
 	</ion-content>
 </ion-view>
 <div class="plus-icon">
-	<div class="floatingContainer" ng-style="{bottom: plusBottom}">
+	<div class="floatingContainer" ng-style="{bottom: plusCSS}">
 		<div class="subActionButton person">
 			<p class="floatingText"><span class="floatingTextBG">Add Contact</span></p>
 		</div>
@@ -29,7 +29,7 @@
 	<div class="toasts"><p class="floatingText">Added Note</p></div>
 </div>
 <div id="page">
-	<div id="toolbar" ng-style="{height: footerHeight}">
+	<div id="toolbar" ng-style="{height: detailCSS}">
 		<div class="item item-thumbnail-left">
 			<img src="{{serverPath}}/pics/{{detailSession.pic}}">
 			<h2>{{detailSession.title}}</h2>
@@ -37,9 +37,9 @@
 		</div>
 		<div class="item item-body">
 			<h1>{{detailSession.time}}</h1>
-			<p style="height: 100px; overflow: hidden">{{detailSession.description}}</p>
+			<p style="overflow: hidden" ng-style="{height: detailContentCSS}">{{detailSession.description}}</p>
 		</div>
-		<div class="item tabs tabs-secondary tabs-icon-left">
+		<div class="item tabs tabs-secondary tabs-icon-left" ng-show="detailContentHeight>=-20 && detailShown">
 			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
 				<i class="icon ion-thumbsup"></i>
 			</a>

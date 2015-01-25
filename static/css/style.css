@@ -485,6 +485,7 @@ p {
 #toolbar h1{
 	margin-top: 7px;
 	margin-bottom: 0;
+	overflow: hidden;
 }
 
 #toolbar p{
@@ -494,6 +495,11 @@ p {
 #toolbar .item {
 	border: none;
 	background: none;
+}
+
+#toolbar .item.tabs.tabs-secondary.tabs-icon-left {
+	position: absolute;
+	bottom: 0;
 }
 
 #toolbar .item-body {

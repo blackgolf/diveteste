@@ -32,73 +32,21 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 })
 
 .controller('SessionListCtrl', function ($ionicScrollDelegate, $scope, Session, SERVER_PATH) {
-	var toolbarClose = function () {
-			$scope.noDetail = true;
-			$scope.footerHeight = 0;
-			$scope.plusBottom = '22px';
-			$scope.detailShown = false;
-		},
-		checkScrollOver = function () {
-			var top = $ionicScrollDelegate.getScrollPosition().top,
-				bottom = $('ion-content>.scroll').height() - $('ion-content').height() - 285;
-			if (top > bottom) {
-				$ionicScrollDelegate.scrollBottom(true);
-			}
-		}
 	$scope.serverPath = SERVER_PATH;
 	$scope.sessions = Session.query();
-	toolbarClose();
-	$scope.sessions.$promise.then(function () {
-		$scope.detailSession = $scope.sessions[0];
-	});
-	$scope.toolbarheight = 95;
-	$scope.changeSession = function (session) {
-		if ($scope.detailSession === session && $scope.detailShown) {
-			$('#toolbar').removeClass('notransition');
-			$('.floatingContainer').removeClass('notransition');
-			toolbarClose();
-			checkScrollOver();
-		} else {
-			$scope.noDetail = false;
-			$scope.detailSession = session;
-			$scope.footerHeight = $scope.toolbarheight * 3 + 'px';
-			$scope.plusBottom = ($scope.toolbarheight * 3 - 28) + 'px';
-			$scope.detailShown = true;
-		}
-	};
-	// $scope.showFooter = function (async) {
-	// 	if ($scope.noDetail && $scope.detailSession) {
-	// 		var top = $ionicScrollDelegate.getScrollPosition().top;
-	// 		$scope.bottomPosition = $('ion-content>.scroll').height() - $('ion-content').height();
-	// 		if (top > $scope.bottomPosition - 95) {
-	// 			$scope.footerHeight = (top - $scope.bottomPosition + 95) * 3;
-	// 		} else {
-	// 			$scope.footerHeight = 0;
-	// 		}
-	// 		if ($scope.footerHeight > 50) {
-	// 			$scope.plusBottom = ($scope.footerHeight - 28) + 'px';
-	// 		} else {
-	// 			$scope.plusBottom = '22px';
-	// 		}
-	// 		$scope.footerHeight += 'px';
-	// 		if (!async) {
-	// 			$scope.$apply();
-	// 		}
-	// 	}
-	// };
-
 	var startY, endY, moveY, now, down = false,
 		move = [],
 		calculateSwipe = function () {
+			$scope.barHeight += startY - moveY;
 			for (i = 0; i < move.length; i++) {
 				if (move[move.length - 1].t - move[i].t < 500) {
 					var gap = move[move.length - 1].y - move[i].y;
 					var timegap = move[move.length - 1].t - move[i].t;
 					if (timegap > 0) {
-						if (gap / timegap > 0.05) {
-							swipe(1);
-						} else {
-							swipe(0);
+						if (gap / timegap > 0.3) {
+							detailClose();
+							checkScrollOver();
+							$scope.$apply();
 						};
 					}
 					break;
@@ -110,24 +58,74 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			$('#toolbar').removeClass('notransition');
 			$('.floatingContainer').removeClass('notransition');
 		},
-		swipe = function (type) {
-			switch (type) {
-			case 0:
-				$scope.footerHeight = $scope.toolbarheight * 3 + 'px';
-				$scope.plusBottom = ($scope.toolbarheight * 3 - 28) + 'px';
-				break;
-			case 1:
-				toolbarClose();
-				checkScrollOver();
-				break;
-			}
+		detailMove = function () {
+			$scope.detailCSS = ($scope.barHeight + startY - moveY) + 'px';
+			$scope.detailContentCSS = contentHeight(startY - moveY);
+			$scope.plusCSS = plusBottom(startY - moveY);
 			$scope.$apply();
 		},
-		toolbarMove = function () {
-			$scope.footerHeight = ($scope.toolbarheight * 3 - moveY + startY) + 'px';
-			$scope.plusBottom = ($scope.toolbarheight * 3 - 28 - moveY + startY) + 'px';
-			$scope.$apply();
+		detailClose = function () {
+			$scope.noDetail = true;
+			$scope.detailCSS = 0;
+			$scope.plusCSS = '22px';
+			$scope.detailShown = false;
+			calculateSize();
+			checkScrollOver();
+		},
+		checkScrollOver = function () {
+			if ($ionicScrollDelegate.getScrollPosition()) {
+				var top = $ionicScrollDelegate.getScrollPosition().top,
+					bottom = $('ion-content>.scroll').height() - $('ion-content').height() - 285;
+				if (top > bottom) {
+					$ionicScrollDelegate.scrollBottom(true);
+				}
+			}
+		},
+		contentHeight = function (gap) {
+			if (!gap) {
+				gap = 0;
+			}
+			$scope.detailContentHeight = Math.floor(($scope.barHeight - 185 + gap) / 20) * 20;
+			if ($scope.detailContentHeight > 0) {
+				return $scope.detailContentHeight + 'px';
+			} else {
+				return 0;
+			}
+		},
+		plusBottom = function (gap) {
+			if (!gap) {
+				gap = 0;
+			}
+			$scope.plusBottom = ($scope.barHeight - 28 + gap);
+			return $scope.plusBottom + 'px'
+		},
+		calculateSize = function () {
+			if (window.innerHeight < 480) {
+				$scope.barHeight = 80;
+				$scope.landScape = true;
+			} else {
+				$scope.barHeight = 285;
+				$scope.landScape = false;
+			}
 		};
+	detailClose();
+
+	$scope.changeSession = function (session) {
+		if ($scope.detailSession === session && $scope.detailShown) {
+			$('#toolbar').removeClass('notransition');
+			$('.floatingContainer').removeClass('notransition');
+			detailClose();
+		} else {
+			$scope.detailSession = session;
+			if (!$scope.detailShown) {
+				$scope.noDetail = false;
+				$scope.detailCSS = $scope.barHeight + 'px';
+				$scope.detailContentCSS = contentHeight();
+				$scope.plusCSS = plusBottom();
+				$scope.detailShown = true;
+			}
+		}
+	};
 
 	$(function () {
 		$('.floatingContainer').hover(function () {
@@ -170,7 +168,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					t: e.timeStamp
 				});
 				now = new Date();
-				toolbarMove();
+				detailMove();
 			}
 		});
 
@@ -185,7 +183,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					t: e.timeStamp
 				});
 				now = new Date();
-				toolbarMove();
+				detailMove();
 			}
 		});
 
@@ -201,6 +199,21 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				endY = e.originalEvent.clientY;
 				calculateSwipe();
 			}
+		});
+
+		$(window).on('resize', function () {
+			calculateSize();
+			if (!$scope.detailShown) {
+				$('#toolbar').removeClass('notransition');
+				$('.floatingContainer').removeClass('notransition');
+				detailClose();
+			} else {
+				$scope.noDetail = false;
+				$scope.detailCSS = $scope.barHeight + 'px';
+				$scope.detailContentCSS = contentHeight();
+				$scope.plusCSS = plusBottom();
+			}
+			$scope.$apply();
 		});
 	})
 })
