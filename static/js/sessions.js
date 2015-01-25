@@ -213,6 +213,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.detailContentCSS = contentHeight();
 				$scope.plusCSS = plusBottom();
 			}
+			checkScrollOver();
 			$scope.$apply();
 		});
 	})
