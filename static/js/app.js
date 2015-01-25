@@ -30,7 +30,30 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	$urlRouterProvider.otherwise('/app/sessions');
 })
 
-.controller('AppCtrl', function ($scope, $ionicModal, $ionicScrollDelegate, $timeout) {
+.controller('AppCtrl', function ($scope, $http, $ionicModal, $ionicScrollDelegate, $timeout) {
+	function getURLParameter(name) {
+		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+	}
+	var code = getURLParameter('code');
+	if (code) {
+		$http.post('https://secure.meetup.com/oauth2/access', {
+			'client_id': '5gefnsti32oruqceedbl0q0jag',
+			'client_secret': 'ake993sske7re8q4a7qk05si0l',
+			'grant_type': '377f7676323a66183a555655375f47',
+			'redirect_uri': 'http://128.199.146.12:5000/',
+			'code': code
+		}).
+		success(function (data, status, headers, config) {
+			console.log(data);
+			// this callback will be called asynchronously
+			// when the response is available
+		}).
+		error(function (data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	}
+
 	// Form data for the login modal
 	$scope.loginData = {};
 
@@ -70,7 +93,13 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 			}, {
 				scope: 'email,publish_actions'
 			});
-	}
+	};
+
+	$scope.meetupLogin = function () {
+		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=5gefnsti32oruqceedbl0q0jag&response_type=code&redirect_uri=http://128.199.146.12:5000/';
+		// window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=5gefnsti32oruqceedbl0q0jag&response_type=code&redirect_uri=http://localhost:5000/';
+	};
+
 	$(document).ready(function () {
 		var menu = $(".menu > img");
 		var arrow = $(".arrow > img");
