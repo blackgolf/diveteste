@@ -30,15 +30,25 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	$urlRouterProvider.otherwise('/app/sessions');
 })
 
-.controller('AppCtrl', function ($scope, $http, $ionicModal, $ionicScrollDelegate, $timeout) {
+.factory('Meetup', function ($resource, SERVER_PATH) {
+	return $resource('/auth/meetup/:code', {
+		code: '@code'
+	});
+})
+
+.controller('AppCtrl', function ($scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, MEETUP_KEY, MEETUP_SECRET, SERVER_PATH) {
 	function getURLParameter(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 	}
 	var code = getURLParameter('code');
 	if (code) {
-		$http.post('https://secure.meetup.com/oauth2/access?client_id=5gefnsti32oruqceedbl0q0jag&client_secret=ake993sske7re8q4a7qk05si0l&grant_type=authorization_code&redirect_uri=http://128.199.146.12:5000/&code=' + code, {}).
+		// var code = Meetup.get({
+		// 	code: code
+		// }, function (data) {
+		// 	console.log(data);
+		// });
+		$http.post('https://secure.meetup.com/oauth2/access?client_id=' + MEETUP_KEY + '&client_secret=' + MEETUP_SECRET + '&grant_type=authorization_code&redirect_uri=' + SERVER_PATH + '&code=' + code, {}).
 		success(function (data, status, headers, config) {
-			console.log(data);
 			// this callback will be called asynchronously
 			// when the response is available
 		}).
@@ -90,8 +100,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	};
 
 	$scope.meetupLogin = function () {
-		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=5gefnsti32oruqceedbl0q0jag&response_type=code&redirect_uri=http://128.199.146.12:5000/';
-		// window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=5gefnsti32oruqceedbl0q0jag&response_type=code&redirect_uri=http://localhost:5000/';
+		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + SERVER_PATH;
 	};
 
 	$(document).ready(function () {
