@@ -31,7 +31,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 })
 
 .factory('Meetup', function ($resource, SERVER_PATH) {
-	return $resource('/auth/meetup/:code', {
+	return $resource(SERVER_PATH + '/auth/meetup/:code', {
 		code: '@code'
 	});
 })
