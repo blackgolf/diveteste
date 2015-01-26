@@ -1,6 +1,6 @@
 angular.module('conference.config', [])
 	.constant('FB_APP_ID', '932536800093017')
 	.constant('SERVER_PATH', 'http://ktdigital.asia:5000')
-	.constant('CLIENT_PATH', 'http://ktdigital.asia/fv0010')
+	.constant('CLIENT_PATH', 'http://128.199.146.12:5000')
 	.constant('MEETUP_KEY', '5gefnsti32oruqceedbl0q0jag')
 	.constant('MEETUP_SECRET', 'ake993sske7re8q4a7qk05si0l');
