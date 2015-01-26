@@ -1,18 +1,19 @@
 <?php
+header('Access-Control-Allow-Origin: *');  
 require('lib.php');
 if(!isset($_GET['code'])){
 	echo 'start';
 	$meetup = new Meetup();
 	$meetup->authorize([
 		'client_id'		=> '5gefnsti32oruqceedbl0q0jag',
-		'redirect_uri'	=> 'http://ktdigital.asia/fv0010'] 
+		'redirect_uri'	=> 'http://128.199.146.12:5000'] 
 	);
 } else {
 	//assuming we came back here...
 	$meetup = new Meetup([
 		"client_id"		=> '5gefnsti32oruqceedbl0q0jag',
 		"client_secret" => 'ake993sske7re8q4a7qk05si0l',
-		"redirect_uri"	=> 'http://ktdigital.asia/fv0010',
+		"redirect_uri"	=> 'http://128.199.146.12:5000',
 		"code"			=> $_GET['code']
 		]
 	);
