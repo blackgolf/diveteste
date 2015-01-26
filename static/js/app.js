@@ -47,8 +47,9 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 		// }, function (data) {
 		// 	console.log(data);
 		// });
-		$http.post('https://secure.meetup.com/oauth2/access?client_id=' + MEETUP_KEY + '&client_secret=' + MEETUP_SECRET + '&grant_type=authorization_code&redirect_uri=' + CLIENT_PATH + '&code=' + code, {}).
+		$http.post('http://ktdigital.asia/fv0010/meetup/?code=' + code, {}).
 		success(function (data, status, headers, config) {
+			console.log(data);
 			// this callback will be called asynchronously
 			// when the response is available
 		}).
