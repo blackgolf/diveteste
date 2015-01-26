@@ -36,7 +36,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	});
 })
 
-.controller('AppCtrl', function ($scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, MEETUP_KEY, MEETUP_SECRET, SERVER_PATH) {
+.controller('AppCtrl', function ($scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, MEETUP_KEY, MEETUP_SECRET, SERVER_PATH, CLIENT_PATH) {
 	function getURLParameter(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 	}
