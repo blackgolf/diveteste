@@ -47,7 +47,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 		// }, function (data) {
 		// 	console.log(data);
 		// });
-		$http.post('https://secure.meetup.com/oauth2/access?client_id=' + MEETUP_KEY + '&client_secret=' + MEETUP_SECRET + '&grant_type=authorization_code&redirect_uri=' + SERVER_PATH + '&code=' + code, {}).
+		$http.post('https://secure.meetup.com/oauth2/access?client_id=' + MEETUP_KEY + '&client_secret=' + MEETUP_SECRET + '&grant_type=authorization_code&redirect_uri=' + CLIENT_PATH + '&code=' + code, {}).
 		success(function (data, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
@@ -100,7 +100,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	};
 
 	$scope.meetupLogin = function () {
-		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + SERVER_PATH;
+		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
 	};
 
 	$(document).ready(function () {
