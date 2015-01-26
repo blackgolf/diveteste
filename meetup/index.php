@@ -9,4 +9,5 @@ try {
 } catch (HttpException $ex) {
     echo $ex;
 }
+var_dump($r->send);
 ?>
