@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(~0);
+// ini_set('display_errors', 1);
+// error_reporting(~0);
 header('Access-Control-Allow-Origin: *');  
 require('lib.php');
 if(!isset($_GET['code'])){
@@ -22,21 +22,20 @@ if(!isset($_GET['code'])){
 
 	//get an access token
 	$response = $meetup->access();
-	echo $response->access_token;
 
-	// //now we can re-use this object for several requests using our access
-	// //token
-	// $meetup = new Meetup(
-	// 	["access_token"	=> $response->access_token]
-	// );
+	//now we can re-use this object for several requests using our access
+	//token
+	$meetup = new Meetup(
+		["access_token"	=> $response->access_token]
+	);
 
-	// //store details for later in case we need to do requests elsewhere
-	// //or refresh token
-	// $_SESSION['access_token'] = $response->access_token;
-	// $_SESSION['refresh_token'] = $response->refresh_token;
-	// $_SESSION['expires'] = time() + intval($response->expires_in); //use if >= intval($_SESSION['expires']) to check
+	//store details for later in case we need to do requests elsewhere
+	//or refresh token
+	$_SESSION['access_token'] = $response->access_token;
+	$_SESSION['refresh_token'] = $response->refresh_token;
+	$_SESSION['expires'] = time() + intval($response->expires_in); //use if >= intval($_SESSION['expires']) to check
 
-	// //get all groups for this member
-	// $response = $meetup->get('/2/profiles', ['member_id'=>'self']);
-	// echo json_encode($response);
+	//get all groups for this member
+	$response = $meetup->get('/2/profiles', ['member_id'=>'self']);
+	echo json_encode($response);
 }?>
