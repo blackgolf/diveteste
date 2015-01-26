@@ -466,6 +466,52 @@ class Meetup
     }
 }
 
+if( !isset($_GET['code']) )
+{
+    //authorize and go back to URI w/ code
+    $meetup = new Meetup();
+    $meetup->authorize(
+        'client_id'     => '5gefnsti32oruqceedbl0q0jag',
+        'redirect_uri'  => 'https://ktdigital.asia/fv0010'     
+    );
+}
+else
+{
+    //assuming we came back here...
+    $meetup = new Meetup(
+        array(
+            "client_id"     => '5gefnsti32oruqceedbl0q0jag',
+            "client_secret" => 'ake993sske7re8q4a7qk05si0l',
+            "redirect_uri"  => 'https://ktdigital.asia/fv0010',
+            "code"          => $_GET['code'] //passed back to us from meetup
+        )
+    );
+
+    //get an access token
+    $response = $meetup->access();
+
+    //now we can re-use this object for several requests using our access
+    //token
+    echo $response->access_token;
+    $meetup = new Meetup(
+        array(
+            "access_token"  => $response->access_token,
+        )
+     );
+
+     //store details for later in case we need to do requests elsewhere
+     //or refresh token
+     $_SESSION['access_token'] = $response->access_token;
+     $_SESSION['refresh_token'] = $response->refresh_token;
+     $_SESSION['expires'] = time() + intval($response->expires_in); //use if >= intval($_SESSION['expires']) to check
+
+     //get all groups for this member
+     $response = $meetup->getGroups('member_id' => '<member id>');
+
+     //get all events for this member
+     $response = $meetup->getEvents('member_id' => '<member id>');
+}
+
 try
 {
    $meetup = new Meetup('5gefnsti32oruqceedbl0q0jag');
