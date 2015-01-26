@@ -1,0 +1,33 @@
+{
+    "name": "MeetUp",
+    "apiVersion": "2.0",
+    "baseUrl": "https://api.meetup.com",
+    "description": "Meetup REST API client",
+    "operations": {
+       "getUserInfo": {
+            "httpMethod": "GET",
+            "uri": "2/member/self.json",
+            "summary": "Returns the account info for the authenticating user.",
+            "responseClass": "JsonOutput",
+            "parameters": {
+                "fields": {
+                    "description": "Specifies the fields to receive.",
+                    "type": "string",
+                    "location": "query",
+                    "default": "email"
+                }
+            },
+            "additionalParameters": {
+                "location": "query"
+            }
+        }
+    },
+    "models": {
+        "JsonOutput": {
+            "type": "object",
+            "additionalProperties": {
+                "location": "json"
+            }
+        }
+    }
+}
