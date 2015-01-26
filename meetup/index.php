@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(~0);
 header('Access-Control-Allow-Origin: *');  
 require('lib.php');
 if(!isset($_GET['code'])){
