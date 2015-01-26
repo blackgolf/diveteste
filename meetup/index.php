@@ -5,14 +5,14 @@ if(!isset($_GET['code'])){
 	$meetup = new Meetup();
 	$meetup->authorize([
 		'client_id'		=> '5gefnsti32oruqceedbl0q0jag',
-		'redirect_uri'	=> 'https://ktdigital.asia/fv0010'] 
+		'redirect_uri'	=> 'http://ktdigital.asia/fv0010'] 
 	);
 } else {
 	//assuming we came back here...
 	$meetup = new Meetup([
 		"client_id"		=> '5gefnsti32oruqceedbl0q0jag',
 		"client_secret" => 'ake993sske7re8q4a7qk05si0l',
-		"redirect_uri"	=> 'https://ktdigital.asia/fv0010',
+		"redirect_uri"	=> 'http://ktdigital.asia/fv0010',
 		"code"			=> $_GET['code']
 		]
 	);

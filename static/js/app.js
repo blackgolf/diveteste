@@ -100,7 +100,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	};
 
 	$scope.meetupLogin = function () {
-		window.open('https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH);
+		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
 	};
 
 	$(document).ready(function () {
