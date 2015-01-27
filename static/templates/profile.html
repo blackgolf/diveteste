@@ -4,13 +4,11 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <div class="list card">
-            <div class="item">
+            <ion-item class="item-avatar-left item ng-binding">
+                <img ng-src="{{user.photo.thumb_link}}">
                 <h2>{{user.name}}</h2>
-                <p>{{user.city}}</p>
-            </div>
-            <div class="item item-body">
-                <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" ng-if="user.id"/>
-            </div>
+                <p>{{user.group.name}}</p>
+            </ion-item>
         </div>
     </ion-content>
 </ion-view>

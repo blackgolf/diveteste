@@ -36,20 +36,16 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	});
 })
 
-.controller('AppCtrl', function ($scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, MEETUP_KEY, MEETUP_SECRET, SERVER_PATH, CLIENT_PATH) {
+.controller('AppCtrl', function ($rootScope, $scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, CLIENT_PATH, MEETUP_KEY, MEETUP_SECRET, PHP_SERVER, SERVER_PATH) {
 	function getURLParameter(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 	}
 	var code = getURLParameter('code');
 	if (code) {
-		// var code = Meetup.get({
-		// 	code: code
-		// }, function (data) {
-		// 	console.log(data);
-		// });
-		$http.get('http://ktdigital.asia/fv0010/meetup/?code=' + code).
+		$http.get(PHP_SERVER + '/meetup/?code=' + code).
 		success(function (data, status, headers, config) {
-			console.log(data);
+			localStorage.setItem('meetupProfile', JSON.stringify(data.results[0]));
+			window.location.href = CLIENT_PATH;
 			// this callback will be called asynchronously
 			// when the response is available
 		}).
@@ -70,23 +66,23 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	});
 
 	// Triggered in the login modal to close it
-	$scope.closeLogin = function () {
+	$rootScope.closeLogin = function () {
 		$scope.modal.hide();
 	},
 
 	// Open the login modal
-	$scope.login = function () {
+	$rootScope.login = function () {
 		$scope.modal.show();
 	};
 
 	// Perform the login action when the user submits the login form
-	$scope.doLogin = function () {
+	$rootScope.doLogin = function () {
 		console.log('Login', $scope.loginData);
 		alert("Only the Facebook login is implemented in this sample app.");
 		$scope.closeLogin();
 	};
 
-	$scope.fbLogin = function () {
+	$rootScope.fbLogin = function () {
 		openFB.login(
 			function (response) {
 				if (response.status === 'connected') {
@@ -100,7 +96,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 			});
 	};
 
-	$scope.meetupLogin = function () {
+	$rootScope.meetupLogin = function () {
 		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
 	};
 

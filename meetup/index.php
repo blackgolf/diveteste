@@ -8,21 +8,21 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 header('Access-Control-Allow-Headers: Content-Type');
 
 require('lib.php');
+require('config.php');
 if(!isset($_GET['code'])){
 	$meetup = new Meetup();
 	$meetup->authorize([
-		'client_id'		=> '5gefnsti32oruqceedbl0q0jag',
-		'redirect_uri'	=> 'http://128.199.146.12:5000'] 
-	);
+		'client_id'		=> $meetupapp['client_id'],
+		'redirect_uri'	=> $meetupapp['redirect_uri']
+	]);
 } else {
 	//assuming we came back here...
 	$meetup = new Meetup([
-		"client_id"		=> '5gefnsti32oruqceedbl0q0jag',
-		"client_secret" => 'ake993sske7re8q4a7qk05si0l',
-		"redirect_uri"	=> 'http://128.199.146.12:5000',
+		"client_id"		=> $meetupapp['client_id'],
+		"client_secret" => $meetupapp['client_secret'],
+		"redirect_uri"	=> $meetupapp['redirect_uri'],
 		"code"			=> $_GET['code']
-		]
-	);
+	]);
 
 	//get an access token
 	$response = $meetup->access();
