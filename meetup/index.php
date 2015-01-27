@@ -9,7 +9,6 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 require('lib.php');
 if(!isset($_GET['code'])){
-	echo 'start';
 	$meetup = new Meetup();
 	$meetup->authorize([
 		'client_id'		=> '5gefnsti32oruqceedbl0q0jag',
@@ -17,6 +16,7 @@ if(!isset($_GET['code'])){
 	);
 } else {
 	//assuming we came back here...
+	var_dump($_GET['code']);
 	$meetup = new Meetup([
 		"client_id"		=> '5gefnsti32oruqceedbl0q0jag',
 		"client_secret" => 'ake993sske7re8q4a7qk05si0l',
