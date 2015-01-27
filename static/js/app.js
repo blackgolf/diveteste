@@ -47,7 +47,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 		// }, function (data) {
 		// 	console.log(data);
 		// });
-		$http.get('http://ktdigital.asia/fv0010/meetup/?code=' + code).
+		$http.jsonp('http://ktdigital.asia/fv0010/meetup/?code=' + code).
 		success(function (data, status, headers, config) {
 			console.log(data);
 			// this callback will be called asynchronously

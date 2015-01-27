@@ -1,9 +1,8 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(~0);
-header('Access-Control-Allow-Origin: *'); 
 header("Access-Control-Allow-Credentials: true"); 
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); 
+header('Access-Control-Allow-Methods: GET'); 
 header('Access-Control-Allow-Headers: X-Requested-With');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -16,7 +15,6 @@ if(!isset($_GET['code'])){
 	);
 } else {
 	//assuming we came back here...
-	var_dump($_GET['code']);
 	$meetup = new Meetup([
 		"client_id"		=> '5gefnsti32oruqceedbl0q0jag',
 		"client_secret" => 'ake993sske7re8q4a7qk05si0l',
