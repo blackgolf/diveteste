@@ -111,20 +111,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	detailClose();
 
 	$scope.changeSession = function (session) {
-		if ($scope.detailSession === session && $scope.detailShown) {
-			$('#toolbar').removeClass('notransition');
-			$('.floatingContainer').removeClass('notransition');
-			detailClose();
-		} else {
-			$scope.detailSession = session;
-			if (!$scope.detailShown) {
-				$scope.noDetail = false;
-				$scope.detailCSS = $scope.barHeight + 'px';
-				$scope.detailContentCSS = contentHeight();
-				$scope.plusCSS = plusBottom();
-				$scope.detailShown = true;
-			}
-		}
+		session.show = !session.show;
 	};
 
 	$(function () {

@@ -8,6 +8,10 @@
 				<img ng-src="{{serverPath}}/pics/{{session.pic}}">
 				{{session.title}}
 				<p>{{session.speaker}}</p>
+				<div class="post-content" ng-class="{'show': session.show}">
+					<h1>{{session.time}}</h1>
+					<p>{{session.description}}</p>
+				</div>
 			</ion-item>
 			<ion-item ng-style="{height: barHeight+'px'}" ng-show="detailShown"></ion-item>
 		</ion-list>
@@ -27,28 +31,4 @@
 		<div class="actionButton"><p class="floatingText"><span class="floatingTextBG">Add Customer</span></p></div>
 	</div>
 	<div class="toasts"><p class="floatingText">Added Note</p></div>
-</div>
-<div id="page">
-	<div id="toolbar" ng-style="{height: detailCSS}">
-		<div class="item item-thumbnail-left">
-			<img src="{{serverPath}}/pics/{{detailSession.pic}}">
-			<h2>{{detailSession.title}}</h2>
-			<p>{{detailSession.speaker}}</p>
-		</div>
-		<div class="item item-body">
-			<h1>{{detailSession.time}}</h1>
-			<p style="overflow: hidden" ng-style="{height: detailContentCSS}">{{detailSession.description}}</p>
-		</div>
-		<div class="item tabs tabs-secondary tabs-icon-left" ng-show="detailContentHeight>=-20 && detailShown">
-			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
-				<i class="icon ion-thumbsup"></i>
-			</a>
-			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
-				<i class="icon ion-chatbox"></i>
-			</a>
-			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
-				<i class="icon ion-share"></i>
-			</a>
-		</div>
-	</div>
 </div>

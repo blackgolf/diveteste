@@ -571,3 +571,30 @@ p {
 	opacity: 0.5;
 	margin-top: -60px;
 }
+.post-content {
+  position: relative;
+  max-height: 0px;
+  padding: 0 5px;
+  clear: both;
+  margin-top: 0px;
+  box-sizing: border-box;
+  overflow: auto;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s cubic-bezier(0.4, 0.08, 0.14, 0.82);
+          transition: all 0.3s cubic-bezier(0.4, 0.08, 0.14, 0.82);
+}
+.post-content.show {
+  padding: 5px 5px 15px;
+  max-height: 999px;
+  visibility: visible;
+  opacity: 1;
+}
+.post-content p {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: none;
+}
+.item {
+	padding-bottom: 0;
+}
