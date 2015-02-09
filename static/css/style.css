@@ -1,21 +1,19 @@
-.item-avatar > img:first-child, .item-avatar .item-image, .item-avatar .item-content > img:first-child, .item-avatar .item-content .item-image, .item-avatar-left > img:first-child, .item-avatar-left .item-image, .item-avatar-left .item-content > img:first-child, .item-avatar-left .item-content .item-image {
+.item-avatar > img: first-child, .item-avatar .item-image, .item-avatar .item-content > img: first-child, .item-avatar .item-content .item-image, .item-avatar-left > img: first-child, .item-avatar-left .item-image, .item-avatar-left .item-content > img: first-child, .item-avatar-left .item-content .item-image {
 	top: 10px;
 	left: 12px;
 }
-
-.item-avatar > img:first-child, .item-avatar .item-image, .item-avatar .item-content > img:first-child, .item-avatar .item-content .item-image, .item-avatar-left > img:first-child, .item-avatar-left .item-image, .item-avatar-left .item-content > img:first-child, .item-avatar-left .item-content .item-image {
+.item-avatar > img: first-child, .item-avatar .item-image, .item-avatar .item-content > img: first-child, .item-avatar .item-content .item-image, .item-avatar-left > img: first-child, .item-avatar-left .item-image, .item-avatar-left .item-content > img: first-child, .item-avatar-left .item-content .item-image {
 	max-width: 50px !important;
 	max-height: 50px !important;
 	border-radius: 25px !important;
 }
-
-.item-thumbnail > img:first-child, .item-thumbnail .item-image, .item-thumbnail .item-content > img:first-child, .item-avatar .item-content .item-image, .item-thumbnail-left > img:first-child, .item-thumbnail-left .item-image, .item-thumbnail-left .item-content > img:first-child, .item-thumbnail-left .item-content .item-image {
+.item-thumbnail > img: first-child, .item-thumbnail .item-image, .item-thumbnail .item-content > img: first-child, .item-avatar .item-content .item-image, .item-thumbnail-left > img: first-child, .item-thumbnail-left .item-image, .item-thumbnail-left .item-content > img: first-child, .item-thumbnail-left .item-content .item-image {
 	/*max-width: 50px !important;*/
-	/*max-height: 50px !important;*/
-	border-radius: 40px !important;
+
+/*max-height: 50px !important;*/
+
+border-radius: 40px !important;
 }
-
-
 .menu-left .item {
 	background-color: transparent;
 	border: none;
@@ -24,11 +22,10 @@
 	border-color: #333;
 	color: #F0F1F1;
 }
-
-.menu-left .item-complex .item-content, .menu-left .item-radio .item-content {
+.menu-left .item-complex .item-content,
+.menu-left .item-radio .item-content {
 	background-color: transparent;
 }
-
 .bar.bar-stable {
 	width: 100%;
 	box-sizing: border-box;
@@ -40,53 +37,44 @@
 	box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.2);
 	border: none;
 }
-
 .bar.bar-stable .title {
 	color: #fff;
 }
-
 .bar-stable .button {
 	color: #fff;
 }
-
-.bar-stable .button.button-icon:after {
+.bar-stable .button.button-icon: after {
 	border-radius: 100%;
-	transition: all .4s cubic-bezier(0,.7,.5,1);
+	transition: all .4s cubic-bezier(0, .7, .5, 1);
 	background: transparent;
-	transform: scale(0,0);
+	transform: scale(0, 0);
 	transform-origin: center center;
 }
-
 .bar-stable .button.button-clear {
 	color: #fff;
 	margin-left: -35px;
 }
-
-.bar-stable .button.button-icon.activated:after {
+.bar-stable .button.button-icon.activated: after {
 	border-radius: 100%;
-	transition: all .4s cubic-bezier(0,.7,.5,1);
+	transition: all .4s cubic-bezier(0, .7, .5, 1);
 	background: #fff;
-	transform: scale(1.5,1.5);
+	transform: scale(1.5, 1.5);
 	transform-origin: center center;
 }
-
 .bar-stable .button.button-icon {
 	width: 35px;
 	margin-left: -42px;
 }
-
-.button-icon.icon:before {
+.button-icon.icon: before {
 	margin-left: -3px;
 }
-
 .ion-navicon-back {
 	width: 35px;
 	height: 35px;
 	margin-top: 17px;
 	margin-left: 10px;
 }
-
-.ion-navicon-back:before {
+.ion-navicon-back: before {
 	content: "\f10b";
 	opacity: 0;
 	font-family: Ionicons;
@@ -95,46 +83,37 @@
 	transform: rotate(180deg);
 	transform-origin: center center;
 }
-
-.menu-open .ion-navicon-back:before {
+.menu-open .ion-navicon-back: before {
 	opacity: 1;
 	transition: all .6s ease;
 	transform: rotate(360deg);
 	transform-origin: center center;
 }
-
-.menu-open .ion-navicon:before {
+.menu-open .ion-navicon: before {
 	opacity: 0;
 	transition: all .3s ease;
 	transform: rotate(180deg);
 	transform-origin: center center;
 }
-
-
-.ion-navicon:before {
+.ion-navicon: before {
 	content: "\f20e";
 	transition: all .6s ease;
 	transform: rotate(360deg);
 	transform-origin: center center;
 }
-
 .menu-open .bar-stable .button.button-icon {
 	border-radius: 100%;
 }
-
-.bar-stable .button:hover {
+.bar-stable .button: hover {
 	color: #fff;
 }
-
 body {
 	background: #efefef;
 }
-
-.bar.bar-stable .toggle:hover {
+.bar.bar-stable .toggle: hover {
 	cursor: pointer;
 }
-
-.bar.bar-stable .toggle:after {
+.bar.bar-stable .toggle: after {
 	content: "";
 	position: absolute;
 	width: 0px;
@@ -146,7 +125,7 @@ body {
 	background-color: #fff;
 	display: block;
 }
-.bar.bar-stable .toggle.anim:after {
+.bar.bar-stable .toggle.anim: after {
 	transition: all 400ms cubic-bezier(0, 0.7, 0.5, 1);
 	width: 70px;
 	height: 70px;
@@ -216,13 +195,96 @@ body {
 .bar.bar-stable.no-trans .arrow {
 	transition: none;
 }
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
 }
-
-html, body, div, span, applet, object, iframe, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, u, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, fieldset, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+i,
+u,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+fieldset,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
 }
@@ -242,7 +304,6 @@ p {
 	border-color: #128a99;
 	color: white;
 }
-
 /*Plus icon*/
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400);
@@ -264,23 +325,21 @@ p {
 	color: #FFF;
 	font-family: 'Roboto';
 }
-
 .floatingContainer {
 	position: fixed;
 	bottom: 22px;
 	right: 2em;
 	z-index: 11;
-	transition: bottom .61s cubic-bezier(0,.7,.5,1);
+	transition: bottom .61s cubic-bezier(0, .7, .5, 1);
 }
-.floatingContainer:hover .actionButton::before {
+.floatingContainer: hover .actionButton: : before {
 	transform: rotate3d(0, 0, 1, 0deg);
 	visibility: hidden;
 }
-.floatingContainer:hover .actionButton::after {
+.floatingContainer: hover .actionButton: : after {
 	transform: rotate3d(0, 0, 1, 0deg);
 	visibility: visible;
 }
-
 .actionButton {
 	height: 4em;
 	width: 4em;
@@ -311,7 +370,7 @@ p {
 .actionButton.display {
 	display: inherit;
 }
-.actionButton:before {
+.actionButton: before {
 	content: '\f067';
 	color: #FFF;
 	position: absolute;
@@ -324,7 +383,7 @@ p {
 	transform: rotate3d(0, 0, 1, -90deg);
 	transition: content 0.4s, transform 0.4s, visibility 0.1s;
 }
-.actionButton:after {
+.actionButton: after {
 	content: '\f007';
 	color: #FFF;
 	position: absolute;
@@ -337,10 +396,9 @@ p {
 	transform: rotate3d(0, 0, 1, -90deg);
 	transition: content 0.4s, transform 0.4s, visibility 0.1s;
 }
-.actionButton:hover {
+.actionButton: hover {
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.28);
 }
-
 .subActionButton {
 	background-color: #3F51B5;
 	height: 2em;
@@ -374,7 +432,7 @@ p {
 .subActionButton.display {
 	display: inherit;
 }
-.subActionButton:before {
+.subActionButton: before {
 	margin-top: .4em;
 	margin-left: .45em;
 	font-size: 1.2em;
@@ -382,26 +440,26 @@ p {
 	position: absolute;
 	color: #FFF;
 }
-.subActionButton.person:before {
+.subActionButton.person: before {
 	content: '\f0c0';
 	margin-top: .3em;
 	margin-left: .3em;
 }
-.subActionButton.mapMarker:before {
+.subActionButton.mapMarker: before {
 	content: '\f041';
 	margin-top: .4em;
 	margin-left: .55em;
 }
-.subActionButton.note:before {
+.subActionButton.note: before {
 	content: '\f044';
 	margin-top: .4em;
 	margin-left: .45em;
 }
-.subActionButton:hover {
+.subActionButton: hover {
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.28);
 }
-
 /*Footer*/
+
 #page {
 	position: absolute;
 	top: 0;
@@ -409,7 +467,6 @@ p {
 	bottom: 0;
 	left: 0;
 }
-
 #actions {
 	position: relative;
 	display: flex;
@@ -420,17 +477,14 @@ p {
 	left: 0;
 	right 0;
 }
-
 #actions .icon {
 	padding: 7px;
 	margin: 2px;
 	vertical-align: middle;
 }
-
 #actions .spacer {
 	flex: 1;
 }
-
 #actions svg {
 	display: inline-block;
 	pointer-events: none;
@@ -440,29 +494,24 @@ p {
 	height: 24px;
 	fill: #fff;
 }
-
 #title {
 	padding: 21px;
 	position: absolute;
 	bottom: 0;
 	color: #fff;
 }
-
 #content {
 	display: block;
 	position: relative;
 	padding: 24px;
 }
-
 .card {
 	display: block;
 	position: relative;
 }
-
 .notransition {
 	transition: none !important;
 }
-
 #toolbar {
 	display: block;
 	position: fixed;
@@ -474,58 +523,50 @@ p {
 	padding: 0 16px;
 	bottom: 0;
 	box-shadow: 1px 0px 5px 2px rgba(0, 0, 0, 0.2);
-	transition: height .61s cubic-bezier(0,.7,.5,1);
+	transition: height .61s cubic-bezier(0, .7, .5, 1);
 	cursor: pointer;
 }
-
-#toolbar h1, #toolbar h2, #toolbar p {
+#toolbar h1,
+#toolbar h2,
+#toolbar p {
 	color: white;
 }
-
-#toolbar h1{
+#toolbar h1 {
 	margin-top: 7px;
 	margin-bottom: 0;
 	overflow: hidden;
 }
-
-#toolbar p{
+#toolbar p {
 	margin-top: 0;
 }
-
 #toolbar .item {
 	border: none;
 	background: none;
 }
-
 #toolbar .item.tabs.tabs-secondary.tabs-icon-left {
 	position: absolute;
 	bottom: 0;
 }
-
 #toolbar .item-body {
 	padding-top: 0;
 	padding-bottom: 0;
 }
-
 #toolbar .item-thumbnail-left {
 	padding: 20px 30px 20px 70px;
 	margin: 0 -16px;
 	background-color: #00b8d4;
 	min-height: 83px
 }
-
-#toolbar .item-thumbnail-left > img:first-child {
+#toolbar .item-thumbnail-left > img: first-child {
 	top: 15px;
 	left: 12px;
 	max-width: 50px;
 	max-height: 50px;
 }
-
 #toolbar .tab-item {
 	color: white;
 	opacity: 1;
 }
-
 .invisible {
 	opacity: 0.5;
 	margin-top: -60px;

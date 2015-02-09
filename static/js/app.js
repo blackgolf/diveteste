@@ -45,7 +45,20 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 		$http.get(PHP_SERVER + '/meetup/?code=' + code).
 		success(function (data, status, headers, config) {
 			localStorage.setItem('meetupProfile', JSON.stringify(data.results[0]));
-			window.location.href = CLIENT_PATH;
+			$timeout(function () {
+				window.location.href = CLIENT_PATH;
+			});
+			// this callback will be called asynchronously
+			// when the response is available
+		}).
+		error(function (data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	} else {
+		$http.get(PHP_SERVER + '/meetup/?api=/2/events&params=member_id:self').
+		success(function (data, status, headers, config) {
+			console.log(data);
 			// this callback will be called asynchronously
 			// when the response is available
 		}).
@@ -108,7 +121,6 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 		var search = $(".search > img");
 		var download = $(".download > img");
 		var trash = $(".trash > img");
-
 
 		$(".toggle").on('click', function () {
 			$.each([menu, arrow], function () {
