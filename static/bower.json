@@ -1,19 +1,19 @@
 {
-  "name": "static",
-  "version": "0.0.0",
-  "homepage": "https://github.com/thiennp/fv0010",
-  "authors": [
-    "Thien Nguyen <nguyenphongthien@yahoo.com>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "fontawesome": "~4.2.0"
-  }
+	"name": "static",
+	"version": "0.0.0",
+	"homepage": "https://github.com/thiennp/fv0010",
+	"authors": [
+		"Thien Nguyen <nguyenphongthien@yahoo.com>"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"font-awesome": "~4.3.0"
+	}
 }
