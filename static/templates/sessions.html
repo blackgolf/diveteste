@@ -4,10 +4,18 @@
 	</ion-nav-buttons>
 	<ion-content class="has-header">
 		<ion-list>
-			<ion-item class="item-avatar-left" ng-repeat="session in sessions" ng-click="changeSession(session)">
+			<ion-item class="item-avatar-left" ng-repeat="session in sessions" ng-click="changeSession(session)"
+			style="position: relative; overflow: hidden; padding-left: 0; padding-top: 0">
+        <div style="position: absolute; overflow: hidden; width: 100%">
+            <img ng-src="{{serverPath}}/pics/{{session.background}}" width="100%">
+        </div>
 				<img ng-src="{{serverPath}}/pics/{{session.pic}}">
 				{{session.title}}
 				<p>{{session.speaker}}</p>
+				<div class="post-content" ng-class="{'show': session.show}">
+					<h1>{{session.time}}</h1>
+					<p>{{session.description}}</p>
+				</div>
 			</ion-item>
 			<ion-item ng-style="{height: barHeight+'px'}" ng-show="detailShown"></ion-item>
 		</ion-list>
