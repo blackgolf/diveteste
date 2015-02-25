@@ -571,3 +571,106 @@ p {
 	opacity: 0.5;
 	margin-top: -60px;
 }
+
+.session-address {
+	color: #fff;
+	padding-left: 15px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-weight: 300;
+	font-size: 14px;
+}
+
+.session-background {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.session-container {
+	height: 60px;
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.session-container:after {
+	content: "...";
+}
+
+.session-content {
+	z-index: 2;
+	position: relative;
+}
+
+.session-cover {
+	display: table;
+	width: 100%;
+}
+
+.session-date {
+	color: #fff;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 80px;
+	letter-spacing: -2px;
+	line-height: 60px;
+	font-weight: 300;
+	padding-left: 12px;
+	padding-right: 12px;
+	border-right: #fff 2px solid;
+	width: 100px;
+	display: table-cell;
+}
+
+.session-description {
+	display: table-cell;
+	padding-top: 0;
+	vertical-align: top;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.session-description *{
+	color: #fff !important;
+	white-space: normal !important;
+}
+
+.session-group-name {
+	color: #fff;
+	padding-left: 15px;
+	font-weight: 500;
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.session-item {
+	position: relative;
+	padding-left: 0;
+	padding-top: 0;
+}
+
+.session-month {
+	color: #fff;
+	font-size: 30px;
+	font-weight: 500;
+	margin-left: 15px;
+	margin-top: 15px;
+	text-transform: uppercase;
+}
+
+.session-photo {
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	z-index: 0;
+}
+
+.session-time {
+	color: rgba(255,255,255,0.3);
+	font-size: 30px;
+	position: absolute;
+	top: 0px;
+	right: 0;
+}

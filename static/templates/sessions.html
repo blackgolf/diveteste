@@ -4,17 +4,29 @@
 	</ion-nav-buttons>
 	<ion-content class="has-header">
 		<ion-list>
-			<ion-item class="item-avatar-left" ng-repeat="session in sessions" ng-click="changeSession(session)"
-			style="position: relative; overflow: hidden; padding-left: 0; padding-top: 0">
-        <div style="position: absolute; overflow: hidden; width: 100%">
-            <img ng-src="{{serverPath}}/pics/{{session.background}}" width="100%">
-        </div>
-				<img ng-src="{{serverPath}}/pics/{{session.pic}}">
-				{{session.title}}
-				<p>{{session.speaker}}</p>
-				<div class="post-content" ng-class="{'show': session.show}">
-					<h1>{{session.time}}</h1>
-					<p>{{session.description}}</p>
+			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
+				ng-click="changeSession(session)">
+				<div class="session-photo" ng-show="session.photo_url">
+						<img ng-src="{{session.photo_url}}" width="100%">
+				</div>
+				<div class="session-background"
+				ng-style="{'background-color': session.backgroundColor}">
+				</div>
+				<div class="session-content">
+					<div class="session-month">
+						{{session.time | amDateFormat:'MMM'}}
+					</div>
+					<div class="session-time">
+						{{session.time | amDateFormat:'h:mm a'}}
+					</div>
+					<div class="session-container">
+						<div class="session-cover">
+							<div class="session-date">{{session.time | amDateFormat:'DD'}}</div>
+							<div ng-bind-html="session.description" class="session-description"></div>
+						</div>
+					</div>
+					<div class="session-group-name">{{session.group.name}}</div>
+					<div class="session-address">{{session.venue.address_1}}</div>
 				</div>
 			</ion-item>
 			<ion-item ng-style="{height: barHeight+'px'}" ng-show="detailShown"></ion-item>

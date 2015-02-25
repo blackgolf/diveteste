@@ -34,6 +34,12 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 .controller('SessionListCtrl', function ($ionicScrollDelegate, $scope, Session, SERVER_PATH) {
 	$scope.serverPath = SERVER_PATH;
 	$scope.sessions = Session.query();
+	$scope.sessions.$promise.then(function (data) {
+		angular.forEach($scope.sessions, function (session) {
+			session.backgroundColor = randomColor();
+			session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 6)] + '.jpg';
+		});
+	});
 	var startY, endY, moveY, now, down = false,
 		move = [],
 		calculateSwipe = function () {
@@ -107,6 +113,12 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.barHeight = 285;
 				$scope.landScape = false;
 			}
+		},
+		randomColor = function () {
+			var singleColor = function () {
+				return Math.floor(Math.random() * 100);
+			}
+			return 'rgba(' + singleColor() + ',' + singleColor() + ',' + singleColor() + ',' + 0.8 + ')';
 		};
 	detailClose();
 
