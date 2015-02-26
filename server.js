@@ -27,7 +27,7 @@ app.get('/sessions/:id', sessions.findById);
 app.get('/speakers', speakers.findAll);
 app.get('/speakers/:id', speakers.findById);
 app.get('/auth/meetup/:code', meetup.auth);
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 5002);
 
 app.listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));
