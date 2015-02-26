@@ -1,9 +1,28 @@
+<div class="menu-cover" ng-show="menuShown">
+	<div class="menu-cover-item item-big" ng-click="menuShown=false">Home</div>
+	<div class="menu-cover-item item-big" ng-click="menuShown=false">Activities</div>
+	<div class="menu-cover-item item-big" ng-click="menuShown=false">Resources</div>
+	<div class="menu-cover-item item-big" ng-click="menuShown=false">Friends</div>
+	<div class="menu-cover-item" ng-click="menuShown=false">Startup Central Rewards</div>
+	<div class="menu-cover-item" ng-click="menuShown=false">Buddy Ride Sharing</div>
+	<div class="menu-cover-item" ng-click="menuShown=false">Oppotunities</div>
+	<div class="close-button" ng-click="menuShown=false"></div>
+</div>
 <ion-view title="Sessions">
 	<ion-nav-buttons side="left">
-		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		<button ng-click="menuShown=true" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
 	<ion-content class="has-header">
 		<ion-list>
+			<ion-item class="item-avatar-left session-item first-item">
+				<div class="item-first">
+					<div class="item-gap"></div>
+					<div class="item-logo">S</div>
+					<div class="item-logo-text">CENTRAL</div>
+					<div class="item-count">{{sessions.length}}</div>
+					<div class="item-count-text">Startup Events</div>
+				</div>
+			</ion-item>
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
 				ng-click="changeSession(session)">
 				<div class="session-photo" ng-show="session.photo_url">
@@ -44,31 +63,59 @@
 		<div class="subActionButton note">
 			<p class="floatingText"><span class="floatingTextBG">Add Note</span></p>
 		</div>
-		<div class="actionButton"><p class="floatingText"><span class="floatingTextBG">Add Customer</span></p></div>
+		<div class="actionButton"></div>
 	</div>
 	<div class="toasts"><p class="floatingText">Added Note</p></div>
 </div>
 <div id="page">
 	<div id="toolbar" ng-style="{height: detailCSS}">
 		<div class="item item-thumbnail-left">
-			<img src="{{serverPath}}/pics/{{detailSession.pic}}">
-			<h2>{{detailSession.title}}</h2>
-			<p>{{detailSession.speaker}}</p>
-		</div>
-		<div class="item item-body">
-			<h1>{{detailSession.time}}</h1>
-			<p style="overflow: hidden" ng-style="{height: detailContentCSS}">{{detailSession.description}}</p>
+			<div class="item-detail-text">
+				<strong>RSVP:</strong>
+				20 members
+				<div class="item-detail-view-all">VIEW ALL ATTENDEES</div>
+			</div>
+			<div class="avatar">
+				<img src="{{serverPath}}/pics/brett.jpg">
+			</div>
+			<div class="avatar">
+				<img src="{{serverPath}}/pics/brian_leroux.jpg">
+			</div>
+			<div class="avatar">
+				<img src="{{serverPath}}/pics/christophe.jpg">
+			</div>
+			<div class="avatar">
+				<img src="{{serverPath}}/pics/holly.jpg">
+			</div>
+			<div class="avatar">
+				<img src="{{serverPath}}/pics/joe_bowser.jpg">
+			</div>
+			<div class="showfriend">
+				<div class="showfriend-icon"></div>
+				SHOW FRIENDS
+			</div>
+
 		</div>
 		<div class="item tabs tabs-secondary tabs-icon-left" ng-show="detailContentHeight>=-20 && detailShown">
 			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
-				<i class="icon ion-thumbsup"></i>
+				<i class="fa fa-calendar"></i><br>
+				RSVP
 			</a>
 			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
-				<i class="icon ion-chatbox"></i>
+				<i class="fa fa-star"></i><br>
+				FOLLOW
 			</a>
 			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
-				<i class="icon ion-share"></i>
+				<i class="fa fa-share-alt"></i><br>
+				SHARE
 			</a>
+			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5000/&t=Share%20the%20app">
+				<i class="fa fa-thumbs-up"></i><br>
+				LIKE
+			</a>
+		</div>
+		<div class="item item-body">
+			<p style="overflow: hidden; padding-top: 10px" ng-style="{height: detailContentCSS}" ng-bind-html="detailSession.description"></p>
 		</div>
 	</div>
 </div>

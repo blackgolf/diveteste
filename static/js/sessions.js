@@ -140,11 +140,11 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	};
 
 	$(function () {
-		$('.floatingContainer').hover(function () {
-			$('.subActionButton').addClass('display');
-		}, function () {
-			$('.subActionButton').removeClass('display');
-		});
+		// $('.floatingContainer').hover(function () {
+		// 	$('.subActionButton').addClass('display');
+		// }, function () {
+		// 	$('.subActionButton').removeClass('display');
+		// });
 		$('.subActionButton').hover(function () {
 			$(this).find('.floatingText').addClass('show');
 		}, function () {
