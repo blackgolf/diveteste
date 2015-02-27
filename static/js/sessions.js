@@ -150,7 +150,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 						[115, 114, 120],
 						[168, 169, 170],
 						[165, 158, 154],
-						[199, 195, 191]
+						[199, 195, 191],
+						[108, 106, 100]
 					]
 					// [
 					// 	[200, 134, 145],
