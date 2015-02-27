@@ -36,7 +36,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	$scope.sessions = Session.query();
 	$scope.sessions.$promise.then(function (data) {
 		angular.forEach($scope.sessions, function (session, index) {
-			session.backgroundColor = randomColor(0, index % 7);
+			session.backgroundColor = randomColor(0, index % 4);
 			// session.backgroundColor = randomColor();
 			session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
 		});
