@@ -190,8 +190,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					// 	[211, 201, 206]
 					// ]
 				],
-				i = scheme ? scheme : Math.floor(Math.random() * schemeList.length),
-				j = index ? index : Math.floor(Math.random() * schemeList[i].length);
+				i = /*scheme ? scheme : */ Math.floor(Math.random() * schemeList.length),
+				j = /*index ? index : */ Math.floor(Math.random() * schemeList[i].length);
 			return 'rgba(' + schemeList[i][j][0] + ',' + schemeList[i][j][1] + ',' + schemeList[i][j][2] + ',' + 0.8 + ')';
 		};
 	detailClose();
