@@ -147,11 +147,10 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		randomColor = function (scheme, index) {
 			var schemeList = [
 					[
-						[145, 134, 126],
-						[178, 170, 164],
-						[217, 213, 210],
-						[149, 161, 195],
-						[178, 178, 178]
+						[115, 114, 120],
+						[168, 169, 170],
+						[165, 158, 154],
+						[199, 195, 191]
 					]
 					// [
 					// 	[200, 134, 145],
