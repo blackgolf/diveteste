@@ -137,11 +137,52 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.landScape = false;
 			}
 		},
+		// randomColor = function () {
+		// 	var singleColor = function () {
+		// 		return Math.floor(Math.random() * 100);
+		// 	}
+		// 	return 'rgba(' + singleColor() + ',' + singleColor() + ',' + singleColor() + ',' + 0.8 + ')';
+		// },
 		randomColor = function () {
-			var singleColor = function () {
-				return Math.floor(Math.random() * 100);
-			}
-			return 'rgba(' + singleColor() + ',' + singleColor() + ',' + singleColor() + ',' + 0.8 + ')';
+			var schemeList = [
+					[
+						[200, 134, 145],
+						[173, 133, 186],
+						[149, 161, 195],
+						[116, 161, 142],
+						[129, 173, 181],
+						[178, 200, 145],
+						[185, 156, 107],
+						[228, 153, 105],
+						[201, 194, 127],
+						[148, 148, 148],
+						[178, 178, 178],
+						[214, 214, 214],
+						[145, 134, 126],
+						[178, 170, 164],
+						[217, 213, 210]
+					],
+					[
+						[121, 63, 13],
+						[172, 112, 61],
+						[195, 142, 99],
+						[228, 153, 105],
+						[229, 174, 134],
+						[238, 197, 169],
+						[110, 118, 73],
+						[157, 151, 84],
+						[199, 195, 151],
+						[180, 168, 81],
+						[223, 210, 124],
+						[231, 227, 191],
+						[132, 109, 116],
+						[183, 166, 173],
+						[211, 201, 206]
+					]
+				],
+				i = Math.floor(Math.random() * schemeList.length),
+				j = Math.floor(Math.random() * schemeList[i].length);
+			return 'rgba(' + schemeList[i][j][0] + ',' + schemeList[i][j][1] + ',' + schemeList[i][j][2] + ',' + 0.8 + ')';
 		};
 	detailClose();
 
