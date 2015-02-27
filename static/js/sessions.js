@@ -42,6 +42,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	});
 	var startY, endY, moveY, now, down = false,
 		move = [],
+		dHeight = 240,
 		calculateSwipe = function () {
 			$scope.barHeight += startY - moveY;
 			for (i = 0; i < move.length; i++) {
@@ -103,7 +104,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		checkScrollOver = function () {
 			if ($ionicScrollDelegate.getScrollPosition()) {
 				var top = $ionicScrollDelegate.getScrollPosition().top,
-					bottom = $('ion-content>.scroll').height() - $('ion-content').height() - 285;
+					bottom = $('ion-content>.scroll').height() - $('ion-content').height() - dHeight;
 				if (top > bottom) {
 					$ionicScrollDelegate.scrollBottom(true);
 				}
@@ -132,7 +133,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.barHeight = 80;
 				$scope.landScape = true;
 			} else {
-				$scope.barHeight = 285;
+				$scope.barHeight = dHeight;
 				$scope.landScape = false;
 			}
 		},
