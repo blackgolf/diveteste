@@ -593,20 +593,31 @@ p {
 #toolbar .item-thumbnail-left {
 	padding: 10px;
 	margin: 0 -16px;
-	background-color: #00b8d4;
+	background-color: #333;
 	min-height: 83px;
+	position: relative;
 }
+
+#toolbar .item-thumbnail-left .item-thumbnail-left-background {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
 #toolbar .item-thumbnail-left .avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 40px;
+	width: 39px;
+	height: 39px;
+	border-radius: 39px;
 	overflow: hidden;
 	float: left;
 	margin-left: 5px;
 }
 #toolbar .item-thumbnail-left .avatar img {
-	max-width: 40px;
-	max-height: 40px;
+	max-width: 39px;
+	max-height: 39px;
 }
 #toolbar .tab-item {
 	color: white;
@@ -895,7 +906,7 @@ header.bar.bar-header.bar-dark {
 	font-family: "Roboto Condensed";
 	display: inline-block;
 	background: rgba(255,255,255,0.8);
-	color: #00b8d4;
+	color: rgba(30,30,30,1);
 	padding: 2px 5px;
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -911,10 +922,10 @@ header.bar.bar-header.bar-dark {
 }
 
 .showfriend-icon {
-	height: 40px;
-	width: 40px;
+	height: 39px;
+	width: 39px;
 	border: #fff 2px solid;
-	border-radius: 40px;
+	border-radius: 39px;
 	position: relative;
 	margin: auto;
 }

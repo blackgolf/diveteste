@@ -70,10 +70,12 @@
 <div id="page">
 	<div id="toolbar" ng-style="{height: detailCSS}">
 		<div class="item item-thumbnail-left">
+			<div class="item-thumbnail-left-background" ng-style="{'background-color': detailSession.backgroundColor}"></div>
 			<div class="item-detail-text">
 				<strong>RSVP:</strong>
 				20 members
-				<div class="item-detail-view-all">VIEW ALL ATTENDEES</div>
+				<div class="item-detail-view-all"
+				ng-style="{'color': detailSession.backgroundColor}">VIEW ALL ATTENDEES</div>
 			</div>
 			<div class="avatar">
 				<img src="{{serverPath}}/pics/brett.jpg">
@@ -94,7 +96,6 @@
 				<div class="showfriend-icon"></div>
 				SHOW FRIENDS
 			</div>
-
 		</div>
 		<div class="item tabs tabs-secondary tabs-icon-left" ng-show="detailContentHeight>=-20 && detailShown">
 			<a class="tab-item" href="http://www.facebook.com/sharer.php?u=http://128.199.146.12:5002/&t=Share%20the%20app">
@@ -115,7 +116,7 @@
 			</a>
 		</div>
 		<div class="item item-body">
-			<p style="overflow: hidden; padding-top: 10px" ng-style="{height: detailContentCSS}" ng-bind-html="detailSession.description"></p>
+			<p style="padding-top: 10px" ng-style="{height: detailContentCSS, overflow: detailFull ? 'scroll' : 'hidden'}" ng-bind-html="detailSession.description"></p>
 		</div>
 	</div>
 </div>

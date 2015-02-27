@@ -54,6 +54,11 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 							checkScrollOver();
 							$scope.$apply();
 						};
+						if (gap / timegap < -0.3) {
+							detailFull();
+							checkScrollOver();
+							$scope.$apply();
+						};
 					}
 					break;
 				}
@@ -65,10 +70,27 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			$('.floatingContainer').removeClass('notransition');
 		},
 		detailMove = function () {
+			if ($scope.barHeight + startY - moveY > $(window).innerHeight()) {
+				detailFull();
+			}
 			$scope.detailCSS = ($scope.barHeight + startY - moveY) + 'px';
 			$scope.detailContentCSS = contentHeight(startY - moveY);
-			$scope.plusCSS = plusBottom(startY - moveY);
+			if ($scope.barHeight + startY - moveY > $(window).innerHeight() - 15) {
+				if ($scope.plusCSS !== '22px') {
+					$('.floatingContainer').removeClass('notransition');
+				}
+				$scope.plusCSS = '22px';
+			} else {
+				$('.floatingContainer').addClass('notransition');
+				$scope.plusCSS = plusBottom(startY - moveY);
+			};
 			$scope.$apply();
+		},
+		detailFull = function () {
+			moveY = $scope.barHeight + startY - $(window).innerHeight();
+			$scope.plusCSS = '22px';
+			$scope.detailFull = true;
+			detailMove();
 		},
 		detailClose = function () {
 			$scope.noDetail = true;
@@ -169,7 +191,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			$('.floatingContainer').addClass('notransition');
 		});
 
-		$('ion-pane').on('touchmove', function (e) {
+		$('ion-pane .item-thumbnail-left').on('touchmove', function (e) {
 			if (down) {
 				moveY = e.originalEvent.changedTouches[0].clientY;
 				if (startY === undefined) {
@@ -180,11 +202,12 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					t: e.timeStamp
 				});
 				now = new Date();
+				$scope.detailFull = false;
 				detailMove();
 			}
 		});
 
-		$('ion-pane').on('mousemove', function (e) {
+		$('ion-pane .item-thumbnail-left').on('mousemove', function (e) {
 			if (down) {
 				moveY = e.originalEvent.clientY;
 				if (startY === undefined) {
@@ -195,6 +218,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					t: e.timeStamp
 				});
 				now = new Date();
+				$scope.detailFull = false;
 				detailMove();
 			}
 		});
