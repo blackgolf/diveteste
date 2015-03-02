@@ -1,5 +1,5 @@
 <?php 
 $meetupapp = [
-	'client_id'		=> '5gefnsti32oruqceedbl0q0jag',
-	"client_secret" => 'ake993sske7re8q4a7qk05si0l',
-	'redirect_uri'	=> 'http://128.199.146.12:5000'];
+	'client_id'		=> 'vrquqgbt56c599m6mfk9qqjito',
+	"client_secret" => 'o0r3rdp523dietgiqma4ib8qqr',
+	'redirect_uri'	=> 'http://128.199.146.12:5002'];
