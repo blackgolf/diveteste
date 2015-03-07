@@ -40,9 +40,11 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	function getURLParameter(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 	}
-	var code = getURLParameter('code');
-	if (code) {
-		$http.get(PHP_SERVER + '/meetup/?code=' + code).
+	var code = getURLParameter('code'),
+        auth = localStorage.getItem('authenticated');
+	if (code && !auth) {
+        localStorage.setItem('authenticated', true);
+		$http.get(PHP_SERVER + '/?code=' + code).
 		success(function (data, status, headers, config) {
 			localStorage.setItem('meetupProfile', JSON.stringify(data.results[0]));
 			$timeout(function () {
@@ -56,7 +58,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 			// or server returns response with an error status.
 		});
 	} else {
-		$http.get(PHP_SERVER + '/meetup/?api=/2/events&params=member_id:self').
+		$http.get(PHP_SERVER + '/?api=/2/events&params=member_id:self').
 		success(function (data, status, headers, config) {
 			console.log(data);
 			// this callback will be called asynchronously
@@ -110,7 +112,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	};
 
 	$rootScope.meetupLogin = function () {
-		window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
+		//window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
 	};
 
 	$(document).ready(function () {
