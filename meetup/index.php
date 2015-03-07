@@ -44,7 +44,12 @@ if(!isset($_SESSION['access_token'])){
 
 		//get all groups for this member
 		$response = $meetup->get('/2/profiles', ['member_id'=>'self']);
-		echo json_encode($response);
+		$result = (object)NULL;
+		$result->access_token = $_SESSION['access_token'];
+		$result->refresh_token = $_SESSION['refresh_token'];
+		$result->expires = $_SESSION['expires'];
+		$result->response = $response;
+		echo json_encode($result);
 	}
 } else {
 	$meetup = new Meetup(

@@ -15,16 +15,13 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {
-
 	$stateProvider
-
 	.state('app', {
 		url: "/app",
 		abstract: true,
 		templateUrl: "templates/menu.html",
 		controller: 'AppCtrl'
 	})
-
 
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/app/sessions');
@@ -36,84 +33,82 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 	});
 })
 
-.controller('AppCtrl', function ($rootScope, $scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, CLIENT_PATH, MEETUP_KEY, MEETUP_SECRET, PHP_SERVER, SERVER_PATH) {
+.factory('getMeetup', function($http, $q, $timeout, PHP_SERVER, MEETUP_KEY, CLIENT_PATH) {
+    return {
+        meetupLogin: function () {
+            window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
+        },
+        getBasic: function(){
+            var _self = this,
+                def = $q.defer(),
+                auth = localStorage.getItem('authenticated'),
+                access_token = localStorage.getItem('access_token');
+            if (auth) {
+                if (!access_token) {
+                    $http.get(PHP_SERVER + '/?code=' + auth)
+                        .success(function (data, status, headers, config) {
+                            localStorage.setItem('access_token', data.access_token);
+                            localStorage.setItem('refresh_token', data.refresh_token);
+                            localStorage.setItem('expires', data.expires);
+                            localStorage.setItem('meetupProfile', JSON.stringify(data.response.results[0]));
+                            def.resolve();
+                        })
+                        .error(function (data, status, headers, config) {
+                            def.resolve();
+                        });
+                }
+            } else {
+                _self.meetupLogin();
+            }
+            return def.promise;
+        },
+        getEvent: function(page){
+            var _self = this,
+                def = $q.defer(),
+                auth = localStorage.getItem('authenticated'),
+                access_token = localStorage.getItem('access_token'),
+                restart = function(){
+                    $timeout(function(){
+                        _self.getEvent(page);
+                    }, 100);
+                };
+            if (auth) {
+                if (access_token) {
+                    $http.get(PHP_SERVER + '/api.php?api=/2/events&params=member_id:self,page:' + 20 + ',offset:' + page * 20 + '&access_token=' + access_token).
+                        success(function (data, status, headers, config) {
+                            def.resolve(data);
+                        }).
+                        error(function (data, status, headers, config) {
+                            def.resolve();
+                        });
+                } else {
+                    restart();
+                }
+            } else {
+                restart();
+            }
+            return def.promise;
+        }
+    }
+})
+
+.controller('AppCtrl', function ($rootScope, $scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, getMeetup, CLIENT_PATH, MEETUP_KEY, MEETUP_SECRET, PHP_SERVER, SERVER_PATH) {
 	function getURLParameter(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
-	}
-	var code = getURLParameter('code'),
-        auth = localStorage.getItem('authenticated');
-	if (code && !auth) {
-        localStorage.setItem('authenticated', true);
-		$http.get(PHP_SERVER + '/?code=' + code).
-		success(function (data, status, headers, config) {
-			localStorage.setItem('meetupProfile', JSON.stringify(data.results[0]));
-			$timeout(function () {
-				window.location.href = CLIENT_PATH;
-			});
-			// this callback will be called asynchronously
-			// when the response is available
-		}).
-		error(function (data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	} else {
-		$http.get(PHP_SERVER + '/?api=/2/events&params=member_id:self').
-		success(function (data, status, headers, config) {
-			console.log(data);
-			// this callback will be called asynchronously
-			// when the response is available
-		}).
-		error(function (data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	}
+	};
+	var page= 0,
+        code = getURLParameter('code');
+	if (code) {
+        localStorage.setItem('authenticated', code);
+        $timeout(function () {
+            window.location.href = CLIENT_PATH;
+        });
+    } else {
+        getMeetup.getBasic();
+    }
 
 	// Form data for the login modal
 	$scope.loginData = {};
-
-	// Create the login modal that we will use later
-	$ionicModal.fromTemplateUrl('templates/login.html', {
-		scope: $scope
-	}).then(function (modal) {
-		$scope.modal = modal;
-	});
-
-	// Triggered in the login modal to close it
-	$rootScope.closeLogin = function () {
-		$scope.modal.hide();
-	},
-
-	// Open the login modal
-	$rootScope.login = function () {
-		$scope.modal.show();
-	};
-
-	// Perform the login action when the user submits the login form
-	$rootScope.doLogin = function () {
-		console.log('Login', $scope.loginData);
-		alert("Only the Facebook login is implemented in this sample app.");
-		$scope.closeLogin();
-	};
-
-	$rootScope.fbLogin = function () {
-		openFB.login(
-			function (response) {
-				if (response.status === 'connected') {
-					console.log('Facebook login succeeded');
-					$scope.closeLogin();
-				} else {
-					alert('Facebook login failed');
-				}
-			}, {
-				scope: 'email,publish_actions'
-			});
-	};
-
-	$rootScope.meetupLogin = function () {
-		//window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
-	};
 
 	$(document).ready(function () {
 		var menu = $(".menu > img");

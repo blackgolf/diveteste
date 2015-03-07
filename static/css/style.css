@@ -937,3 +937,7 @@ header.bar.bar-header.bar-dark {
 	line-height: 22px;
 	left: 6px;
 }
+
+.item-body {
+    overflow-x: hidden;
+}
