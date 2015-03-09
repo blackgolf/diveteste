@@ -46,35 +46,39 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
             localStorage.removeItem('refresh_token');
             auth = null;
             access_token = null;
+            this.getBasic(true);
         },
-        getBasic: function(){
+        getBasic: function(force){
             var _self = this,
                 def = $q.defer(),
                 auth = localStorage.getItem('authenticated'),
                 access_token = localStorage.getItem('access_token'),
                 current = Number(moment().format('x')),
                 expires = localStorage.getItem('expires')*1000;
-            if (auth) {
-                if (current > expires) {
-                    _self.removeBasic();
-                }
-                if (!access_token || access_token=='undefined') {
-                    $http.get(PHP_SERVER + '/?code=' + auth)
-                        .success(function (data, status, headers, config) {
-                            if (data.access_token) {
-                                localStorage.setItem('access_token', data.access_token);
-                                localStorage.setItem('refresh_token', data.refresh_token);
-                                localStorage.setItem('expires', data.expires);
-                                localStorage.setItem('meetupProfile', JSON.stringify(data.response.results[0]));
-                            } else {
-                                _self.removeBasic();
-                                _self.getBasic();
-                            }
-                            def.resolve();
-                        })
-                        .error(function (data, status, headers, config) {
-                            def.resolve();
-                        });
+            if (auth && !force) {
+                if (expires && current > expires) {
+                    $timeout(function() {
+                        _self.removeBasic();
+                    }, 1000)
+                } else {
+                    if (!access_token || access_token=='undefined') {
+                        $http.get(PHP_SERVER + '/?code=' + auth)
+                            .success(function (data, status, headers, config) {
+                                if (data.access_token) {
+                                    localStorage.setItem('access_token', data.access_token);
+                                    localStorage.setItem('refresh_token', data.refresh_token);
+                                    localStorage.setItem('expires', data.expires);
+                                    localStorage.setItem('meetupProfile', JSON.stringify(data.response.results[0]));
+                                } else {
+                                    _self.removeBasic();
+                                    _self.getBasic();
+                                }
+                                def.resolve();
+                            })
+                            .error(function (data, status, headers, config) {
+                                def.resolve();
+                            });
+                    }
                 }
             } else {
                 _self.meetupLogin();
