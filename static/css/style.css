@@ -819,7 +819,7 @@ h1.title {
 	border-radius: 0;
 	-webkit-border-radius: 0;
 	position: fixed;
-	right: 10px;
+	left: 50px;
 	top: 10px;
 }
 

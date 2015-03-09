@@ -38,19 +38,38 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
         meetupLogin: function () {
             window.location.href = 'https://secure.meetup.com/oauth2/authorize?client_id=' + MEETUP_KEY + '&response_type=code&redirect_uri=' + CLIENT_PATH;
         },
+        removeBasic: function () {
+            localStorage.removeItem('authenticated');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('expires');
+            localStorage.removeItem('meetupProfile');
+            localStorage.removeItem('refresh_token');
+            auth = null;
+            access_token = null;
+        },
         getBasic: function(){
             var _self = this,
                 def = $q.defer(),
                 auth = localStorage.getItem('authenticated'),
-                access_token = localStorage.getItem('access_token');
+                access_token = localStorage.getItem('access_token'),
+                current = Number(moment().format('x')),
+                expires = localStorage.getItem('expires')*1000;
             if (auth) {
-                if (!access_token) {
+                if (current > expires) {
+                    _self.removeBasic();
+                }
+                if (!access_token || access_token=='undefined') {
                     $http.get(PHP_SERVER + '/?code=' + auth)
                         .success(function (data, status, headers, config) {
-                            localStorage.setItem('access_token', data.access_token);
-                            localStorage.setItem('refresh_token', data.refresh_token);
-                            localStorage.setItem('expires', data.expires);
-                            localStorage.setItem('meetupProfile', JSON.stringify(data.response.results[0]));
+                            if (data.access_token) {
+                                localStorage.setItem('access_token', data.access_token);
+                                localStorage.setItem('refresh_token', data.refresh_token);
+                                localStorage.setItem('expires', data.expires);
+                                localStorage.setItem('meetupProfile', JSON.stringify(data.response.results[0]));
+                            } else {
+                                _self.removeBasic();
+                                _self.getBasic();
+                            }
                             def.resolve();
                         })
                         .error(function (data, status, headers, config) {
@@ -65,27 +84,17 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
         getEvent: function(page){
             var _self = this,
                 def = $q.defer(),
-                auth = localStorage.getItem('authenticated'),
-                access_token = localStorage.getItem('access_token'),
-                restart = function(){
-                    $timeout(function(){
-                        _self.getEvent(page);
-                    }, 100);
-                };
-            if (auth) {
-                if (access_token) {
-                    $http.get(PHP_SERVER + '/api.php?api=/2/events&params=member_id:self,page:' + 20 + ',offset:' + page * 20 + '&access_token=' + access_token).
-                        success(function (data, status, headers, config) {
-                            def.resolve(data);
-                        }).
-                        error(function (data, status, headers, config) {
-                            def.resolve();
-                        });
-                } else {
-                    restart();
-                }
+                access_token = localStorage.getItem('access_token');
+            if (access_token) {
+                $http.get(PHP_SERVER + '/api.php?api=/2/events&params=member_id:self,page:' + 20 + ',offset:' + page * 20 + '&access_token=' + access_token).
+                    success(function (data, status, headers, config) {
+                        def.resolve(data);
+                    }).
+                    error(function (data, status, headers, config) {
+                        def.resolve();
+                    });
             } else {
-                restart();
+                def.resolve();
             }
             return def.promise;
         }

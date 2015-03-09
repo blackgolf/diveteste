@@ -29,25 +29,34 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	return $resource(SERVER_PATH + '/sessions/:sessionId');
 })
 
-.controller('SessionListCtrl', function ($ionicScrollDelegate, $rootScope, $scope, $http, Session, SERVER_PATH, getMeetup) {
+.controller('SessionListCtrl', function ($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, Session, SERVER_PATH, getMeetup) {
     var reHTML = function(string){
-            //string = string.replace('&lt;','<');
-            //string = string.replace('&gt;','>');
             return string;
         },
-        page= 0;
-    getMeetup
-        .getEvent(page)
-        .then(function(data){
-            $scope.sessions = data.results;
-            angular.forEach($scope.sessions, function (session, index) {
-                session.backgroundColor = randomColor(0, index % 5);
-                // session.backgroundColor = randomColor();
-                session.description = reHTML(session.description);
-                session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
-            });
-            page++;
-        });
+        page = 0,
+        loadPage = function(){
+            console.log ('loadPage()');
+            getMeetup
+                .getEvent(page)
+                .then(function(data){
+                    if (data) {
+                        $scope.sessions = data.results;
+                        angular.forEach($scope.sessions, function (session, index) {
+                            session.backgroundColor = randomColor(0, index % 5);
+                            // session.backgroundColor = randomColor();
+                            session.description = reHTML(session.description);
+                            session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
+                        });
+                        page++;
+                    } else {
+                        $timeout(function(){
+                            console.log('here');
+                            loadPage();
+                        }, 200);
+                    }
+                });
+        };
+        loadPage();
 	//$scope.serverPath = SERVER_PATH;
 	//$scope.sessions = Session.query();
 	//$scope.sessions.$promise.then(function (data) {
