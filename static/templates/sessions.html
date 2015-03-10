@@ -26,7 +26,7 @@
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
 				ng-click="changeSession(session)">
 				<div class="session-photo" ng-show="session.photo_url">
-						<img ng-src="{{session.photo_url}}" width="120%">
+					<img ng-src="{{session.photo_url}}" width="120%">
 				</div>
 				<div class="session-background"
 				ng-style="{'background-color': session.backgroundColor}">
@@ -116,7 +116,7 @@
 			</a>
 		</div>
 		<div class="item item-body">
-			<p style="padding-top: 10px" ng-style="{height: detailContentCSS, overflow: detailFull ? 'scroll' : 'hidden'}" ng-bind-html="detailSession.description"></p>
+			<p style="padding-top: 10px" class="item-body-content" ng-style="{height: detailContentCSS, overflow: detailFull ? 'scroll' : 'hidden'}" ng-bind-html="detailSession.description"></p>
 		</div>
 	</div>
 </div>
