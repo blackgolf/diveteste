@@ -955,3 +955,26 @@ header.bar.bar-header.bar-dark {
 .item-body {
     overflow-x: hidden;
 }
+
+.loader {
+    background: #111;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    z-index: 999999;
+    font-size: 50px;
+}
+
+.loader p {
+    font-size: 20px;
+    line-height: 50px;
+}
+
+.loader.ng-hide {
+    opacity: 0;
+    transition: all .3s linear;
+}

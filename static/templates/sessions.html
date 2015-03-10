@@ -8,7 +8,11 @@
 	<div class="menu-cover-item" ng-click="menuShown=false">Oppotunities</div>
 	<div class="close-button" ng-click="menuShown=false"></div>
 </div>
-<ion-view title="Sessions">
+<div ng-show="loading || eventLoading" class="loader" ng-style="{'padding-top':middleHeight()}">
+    <i class="fa fa-spinner fa-spin"></i>
+    <p>Loading...</p>
+</div>
+<ion-view title="Sessions" ng-hide="loading || eventLoading">
 	<ion-nav-buttons side="left">
 		<button ng-click="menuShown=true" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>

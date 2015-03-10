@@ -78,6 +78,8 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
                             .error(function (data, status, headers, config) {
                                 def.resolve();
                             });
+                    } else {
+                        def.resolve();
                     }
                 }
             } else {
@@ -106,6 +108,10 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
 })
 
 .controller('AppCtrl', function ($rootScope, $scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, getMeetup, CLIENT_PATH, MEETUP_KEY, MEETUP_SECRET, PHP_SERVER, SERVER_PATH) {
+    $scope.loading = true;
+    $scope.middleHeight = function () {
+        return ($(window).innerHeight()/2-50)+'px';
+    };
 	function getURLParameter(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 	};
@@ -117,7 +123,9 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
             window.location.href = CLIENT_PATH;
         });
     } else {
-        getMeetup.getBasic();
+        getMeetup.getBasic().then(function(){
+            $scope.loading = false;
+        });
     }
 
 	// Form data for the login modal

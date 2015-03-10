@@ -30,6 +30,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 })
 
 .controller('SessionListCtrl', function ($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, Session, SERVER_PATH, getMeetup) {
+    $scope.sessions = [];
+    $scope.eventLoading = true;
     var reHTML = function(string){
             return string;
         },
@@ -48,6 +50,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                             session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
                         });
                         page++;
+                        $scope.eventLoading = false;
                     } else {
                         $timeout(function(){
                             console.log('here');
