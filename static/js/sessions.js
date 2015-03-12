@@ -29,7 +29,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	return $resource(SERVER_PATH + '/sessions/:sessionId');
 })
 
-.controller('SessionListCtrl', function ($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, Session, SERVER_PATH, getMeetup) {
+.controller('SessionListCtrl', function ($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, Session, PHP_SERVER, SERVER_PATH, getMeetup) {
     $scope.sessions = [];
     $scope.eventLoading = true;
     var reHTML = function(string){
@@ -47,7 +47,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                             session.backgroundColor = randomColor(0, index % 3);
                             // session.backgroundColor = randomColor();
                             session.description = reHTML(session.description);
-                            session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
+                            session.photo_url = getImage(session.description);
                         });
                         page++;
                         $scope.eventLoading = false;
@@ -58,18 +58,19 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                         }, 200);
                     }
                 });
+        },
+        getImage = function(string) {
+            var tempArr = string.split('<img');
+            if (tempArr[1]) {
+                tempArr2 = tempArr[1].split('src="');
+                tempArr3 = tempArr2[1].split('"');
+                return tempArr3[0];
+            } else {
+                return SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
+            }
         };
         loadPage();
-    $scope.getImage = function(string) {
-      var tempArr = string.split('<img');
-        if (tempArr[1]) {
-            tempArr2 = tempArr[1].split('src="');
-            tempArr3 = tempArr2[1].split('"');
-            return tempArr3[0];
-        } else {
-            return SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
-        }
-    };
+
 	//$scope.serverPath = SERVER_PATH;
 	//$scope.sessions = Session.query();
 	//$scope.sessions.$promise.then(function (data) {
@@ -233,11 +234,18 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	detailClose();
 
 	$scope.changeSession = function (session) {
+        var access_token = localStorage.getItem('access_token');
 		if ($scope.detailSession === session && $scope.detailShown) {
 			$('#toolbar').removeClass('notransition');
 			$('.floatingContainer').removeClass('notransition');
 			detailClose();
 		} else {
+            $http.get(PHP_SERVER + '/api.php?api=/2/event/' + session.id + '&access_token=' + access_token).
+                success(function (data, status, headers, config) {
+                    console.log(data);
+                }).
+                error(function (data, status, headers, config) {
+                });
 			$scope.detailSession = session;
 			if (!$scope.detailShown) {
 				$scope.noDetail = false;
