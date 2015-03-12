@@ -670,6 +670,10 @@ p {
 	position: relative;
 }
 
+.session-name {
+    color: white;
+}
+
 .session-cover {
 	display: table;
 	width: 100%;
@@ -695,6 +699,10 @@ p {
 	vertical-align: top;
 	padding-left: 10px;
 	padding-right: 10px;
+    color: white;
+    font-size: 16px;
+    white-space: normal;
+    overflow: hidden;
 }
 
 .session-description *{

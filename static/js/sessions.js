@@ -44,7 +44,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                     if (data) {
                         $scope.sessions = data.results;
                         angular.forEach($scope.sessions, function (session, index) {
-                            session.backgroundColor = randomColor(0, index % 5);
+                            session.backgroundColor = randomColor(0, index % 3);
                             // session.backgroundColor = randomColor();
                             session.description = reHTML(session.description);
                             session.photo_url = SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
@@ -60,6 +60,16 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                 });
         };
         loadPage();
+    $scope.getImage = function(string) {
+      var tempArr = string.split('<img');
+        if (tempArr[1]) {
+            tempArr2 = tempArr[1].split('src="');
+            tempArr3 = tempArr2[1].split('"');
+            return tempArr3[0];
+        } else {
+            return SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
+        }
+    };
 	//$scope.serverPath = SERVER_PATH;
 	//$scope.sessions = Session.query();
 	//$scope.sessions.$promise.then(function (data) {
@@ -166,21 +176,20 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$scope.landScape = false;
 			}
 		},
-		// randomColor = function () {
-		// 	var singleColor = function () {
-		// 		return Math.floor(Math.random() * 100);
-		// 	}
-		// 	return 'rgba(' + singleColor() + ',' + singleColor() + ',' + singleColor() + ',' + 0.8 + ')';
-		// },
 		randomColor = function (scheme, index) {
 			var schemeList = [
-					[
-						[118, 106, 100],
-						[163, 153, 148],
-						[198, 191, 183],
-						[115, 114, 120],
-						[166, 167, 169]
-					]
+                    [
+                        [40, 155, 184],
+                        [241, 131, 116],
+                        [32, 165, 126]
+                    ]
+					//[
+					//	[118, 106, 100],
+					//	[163, 153, 148],
+					//	[198, 191, 183],
+					//	[115, 114, 120],
+					//	[166, 167, 169]
+					//]
 					// [
 					// 	[200, 134, 145],
 					// 	[173, 133, 186],
@@ -241,11 +250,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	};
 
 	$(function () {
-		// $('.floatingContainer').hover(function () {
-		// 	$('.subActionButton').addClass('display');
-		// }, function () {
-		// 	$('.subActionButton').removeClass('display');
-		// });
 		$('.subActionButton').hover(function () {
 			$(this).find('.floatingText').addClass('show');
 		}, function () {

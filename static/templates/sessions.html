@@ -29,8 +29,8 @@
 			</ion-item>
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
 				ng-click="changeSession(session)">
-				<div class="session-photo" ng-show="session.photo_url">
-					<img ng-src="{{session.photo_url}}" width="120%">
+				<div class="session-photo">
+					<img ng-src="{{getImage(session.description)}}" width="120%">
 				</div>
 				<div class="session-background"
 				ng-style="{'background-color': session.backgroundColor}">
@@ -45,7 +45,7 @@
 					<div class="session-container">
 						<div class="session-cover">
 							<div class="session-date">{{session.time | amDateFormat:'DD'}}</div>
-							<div ng-bind-html="session.description" class="session-description"></div>
+							<div class="session-description">{{session.name}}</div>
 						</div>
 					</div>
 					<div class="session-group-name">{{session.group.name}}</div>
