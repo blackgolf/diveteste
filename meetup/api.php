@@ -25,6 +25,9 @@ if(!isset($_GET['api'])){
     $api = '/2/profiles';
 } else {
     $api = $_GET['api'];
+    if ($api == '/2/rsvps') {
+        $api = '/2/rsvps?event_id='.$_GET['event_id'].'&key='.$_GET['access_token'];
+    }
 }
 
 if(!isset($_GET['params'])){

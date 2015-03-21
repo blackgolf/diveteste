@@ -37,7 +37,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
         },
         page = 0,
         loadPage = function(){
-            console.log ('loadPage()');
             getMeetup
                 .getEvent(page)
                 .then(function(data){
@@ -53,7 +52,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                         $scope.eventLoading = false;
                     } else {
                         $timeout(function(){
-                            console.log('here');
                             loadPage();
                         }, 200);
                     }
@@ -235,6 +233,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 
 	$scope.changeSession = function (session) {
         var access_token = localStorage.getItem('access_token');
+        $scope.members = [];
 		if ($scope.detailSession === session && $scope.detailShown) {
 			$('#toolbar').removeClass('notransition');
 			$('.floatingContainer').removeClass('notransition');
@@ -243,6 +242,13 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
             $http.get(PHP_SERVER + '/api.php?api=/2/event/' + session.id + '&access_token=' + access_token).
                 success(function (data, status, headers, config) {
                     console.log(data);
+                }).
+                error(function (data, status, headers, config) {
+                });
+            $http.get(PHP_SERVER + '/api.php?api=/2/rsvps&event_id=' + session.id + '&order=event&access_token=' + access_token).
+                success(function (data, status, headers, config) {
+                    $scope.members = data.results;
+                    console.log($scope.members);
                 }).
                 error(function (data, status, headers, config) {
                 });

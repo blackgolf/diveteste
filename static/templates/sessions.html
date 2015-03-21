@@ -77,25 +77,13 @@
 			<div class="item-thumbnail-left-background" ng-style="{'background-color': detailSession.backgroundColor}"></div>
 			<div class="item-detail-text">
 				<strong>RSVP:</strong>
-				20 members
+				{{members.length}} members
 				<div class="item-detail-view-all"
 				ng-style="{'color': detailSession.backgroundColor}">VIEW ALL ATTENDEES</div>
 			</div>
             <div class="avatar-list">
-                <div class="avatar">
-                    <img ng-src="{{serverPath}}/pics/brett.jpg">
-                </div>
-                <div class="avatar">
-                    <img ng-src="{{serverPath}}/pics/brian_leroux.jpg">
-                </div>
-                <div class="avatar">
-                    <img ng-src="{{serverPath}}/pics/christophe.jpg">
-                </div>
-                <div class="avatar">
-                    <img ng-src="{{serverPath}}/pics/holly.jpg">
-                </div>
-                <div class="avatar">
-                    <img ng-src="{{serverPath}}/pics/joe_bowser.jpg">
+                <div class="avatar" ng-repeat="member in members">
+                    <img ng-src="{{member.member_photo.thumb_link}}">
                 </div>
             </div>
 			<div class="showfriend">
