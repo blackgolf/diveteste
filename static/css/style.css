@@ -725,14 +725,10 @@ p {
     float: left;
     margin-left: 5px;
     background-color: #ffffff;
-    border: #ffffff 2px solid;
-    box-sizing: border-box;
 }
 
 #toolbar .item-thumbnail-left .avatar img {
     max-width: 39px;
-    margin-left: -2px;
-    margin-top: -2px;
 }
 
 #toolbar .tab-item {
