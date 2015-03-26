@@ -82,7 +82,7 @@
 				ng-style="{'color': detailSession.backgroundColor}">VIEW ALL ATTENDEES</div>
 			</div>
             <div class="avatar-list">
-                <div class="avatar" ng-repeat="member in members">
+                <div class="avatar" ng-repeat="member in members | limitTo:6">
                     <img class="desaturate" ng-src="{{member.member_photo.photo_link}}">
                 </div>
             </div>
