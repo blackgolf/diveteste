@@ -47,6 +47,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
                             var bgImg = getImage(session.description);
                             if (bgImg) {
                                 session.photo_url = getImage(session.description);
+                                session.backgroundColor = 'rgba(0,0,0,0.4)';
                             } else {
                                 session.backgroundColor = randomColor(0, index % 3);
                             }
