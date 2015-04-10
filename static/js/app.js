@@ -97,7 +97,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
                     .get(PHP_SERVER + '/api.php?api=/2/events&params=member_id:self,page:' + 10 + ',offset:' + page * 10 + '&access_token=' + access_token)
                     .success(function(data, status, headers, config) {
                         angular.forEach(data.results, function(value) {
-                            $http.get(PHP_SERVER + '/api.php?api=/2/rsvps&event_id=' + value.id + '&order=event&rsvp=yes&fields=member_photo&access_token=' + access_token).then(function(response){
+                            $http.get(PHP_SERVER + '/api.php?api=/2/rsvps&event_id=' + value.id + '&order=event&rsvp=yes&fields=member_photo&access_token=' + access_token).then(function(response) {
                                 value.members = response.data.results;
                             });
                         });
@@ -106,7 +106,6 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
                             $rootScope.events = [];
                         }
                         $rootScope.events = $rootScope.events.concat(data.results);
-                        console.log($rootScope.events);
                         def.resolve(data);
 
                     })
@@ -168,4 +167,42 @@ angular.module('conference', ['ionic', 'conference.sessions', 'conference.speake
             });
         });
     });
-});
+})
+
+.directive('imgBackground', function() {
+    return {
+        restrict: 'A',
+        scope: {
+            'model': '=ngModel'
+        },
+        link: function($scope, elem, attrs) {
+            var img = new Image(),
+                wWidth = $(window).innerWidth(),
+                scale = wWidth / 163;
+            img.onload = function() {
+                var innerScale = img.width / img.height;
+                $scope.$apply(function() {
+                    if (innerScale > scale) {
+                        $scope.model.img_width = img.height * innerScale;
+                        $scope.model.img_height = img.height;
+                        $scope.model.img_top = 0;
+                        $scope.model.img_left = ($scope.model.img_width - wWidth) / 2;
+                    } else {
+                        $scope.model.img_width = wWidth;
+                        $scope.model.img_height = wWidth / innerScale;
+                        $scope.model.img_top = (163 - $scope.model.img_height) / 3;
+                        $scope.model.img_left = 0;
+                    }
+                    $scope.model.src = $scope.model.photo_url;
+                    $scope.model.style = ({
+                        'width': Math.floor($scope.model.img_width) + 'px',
+                        'height': Math.floor($scope.model.img_height) + 'px',
+                        'top': Math.floor($scope.model.img_top) + 'px',
+                        'left': Math.floor($scope.model.img_left) + 'px',
+                    });
+                });
+            }
+            img.src = $scope.model.photo_url;
+        }
+    }
+});;

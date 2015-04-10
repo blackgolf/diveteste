@@ -30,8 +30,9 @@
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
 				ng-click="changeSession(session)">
 				<div class="session-photo">
-					<img ng-src="{{session.photo_url}}" width="120%">
+					<img ng-model="session" ng-src="{{session.src}}" ng-style="{'width':session.style.width, 'height':session.style.height, 'margin-top':session.style.top, 'margin-left':session.style.left}" img-background>
 				</div>
+				<div class="session-background"></div>
 				<div class="session-background"
 				ng-style="{'background-color': session.backgroundColor}">
 				</div>
@@ -74,7 +75,7 @@
 <div id="page">
 	<div id="toolbar" ng-style="{height: detailCSS}">
 		<div class="item item-thumbnail-left">
-			<div class="item-thumbnail-left-background" ng-style="{'background-color': detailSession.backgroundColor}"></div>
+			<!-- <div class="item-thumbnail-left-background" ng-style="{'background-color': detailSession.backgroundColor}"></div> -->
 			<div class="item-detail-text">
 				<strong>RSVP:</strong>
 				{{members.length}} members
