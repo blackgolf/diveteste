@@ -62,7 +62,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					tempArr3 = tempArr2[1].split('"');
 					return tempArr3[0];
 				} else {
-					return SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
+					return;
+					// return SERVER_PATH + '/pics/' + ['017', 'Color-Check_09_12-1024x455', 'Color-Check_12-1024x455', 'Color-Check_14-1024x455', 'Color-Check_18-1024x455'][Math.floor(Math.random() * 5)] + '.jpg';
 				}
 			};
 		loadPage();
