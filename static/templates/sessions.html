@@ -16,17 +16,17 @@
 	<ion-nav-buttons side="left">
 		<button ng-click="menuShown=true" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
-	<ion-content class="has-header">
+	<ion-item class="item-avatar-left session-item first-item" id="header" style="position: fixed; top: 0; left: 0; z-index: -1">
+		<div class="item-first">
+			<div class="item-gap"></div>
+			<div class="item-logo">S</div>
+			<div class="item-logo-text">CENTRAL</div>
+			<div class="item-count">{{sessions.length}}</div>
+			<div class="item-count-text">Startup Events</div>
+		</div>
+	</ion-item>
+	<ion-content class="has-header" style="padding-top: 165px">
 		<ion-list>
-			<ion-item class="item-avatar-left session-item first-item">
-				<div class="item-first">
-					<div class="item-gap"></div>
-					<div class="item-logo">S</div>
-					<div class="item-logo-text">CENTRAL</div>
-					<div class="item-count">{{sessions.length}}</div>
-					<div class="item-count-text">Startup Events</div>
-				</div>
-			</ion-item>
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
 				ng-click="changeSession(session)">
 				<div class="session-photo">

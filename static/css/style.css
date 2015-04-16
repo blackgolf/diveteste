@@ -1118,3 +1118,7 @@ img.desaturate {
     filter: grayscale(100%);
 	filter: url(desaturate.svg#greyscale);
 }
+
+.pane {
+    background: #000;
+}

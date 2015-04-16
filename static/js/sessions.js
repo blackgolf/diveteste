@@ -23,7 +23,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	.factory('Session', function($resource, SERVER_PATH) {
 		return $resource(SERVER_PATH + '/sessions/:sessionId');
 	})
-	.controller('SessionListCtrl', function($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, Session, PHP_SERVER, SERVER_PATH, getMeetup) {
+	.controller('SessionListCtrl', function($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, $interval, Session, PHP_SERVER, SERVER_PATH, getMeetup) {
 		$scope.sessions = [];
 		$scope.eventLoading = true;
 		var reHTML = function(string) {
@@ -39,12 +39,14 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 							angular.forEach($scope.sessions, function(session, index) {
 								session.description = reHTML(session.description);
 								var bgImg = getImage(session.description);
-								// if (bgImg) {
-								session.photo_url = getImage(session.description);
-								session.backgroundColor = 'rgba(0,0,0,0.3)';
-								// } else {
+								if (bgImg) {
+									session.photo_url = getImage(session.description);
+									session.backgroundColor = 'rgba(0,0,0,0.3)';
+								} else {
+									session.photo_url = '';
+									session.backgroundColor = 'rgba(0,0,0,0)';
 								//     session.backgroundColor = randomColor(0, index % 3);
-								// }
+								}
 							});
 							page++;
 							$scope.eventLoading = false;
@@ -284,34 +286,45 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				checkScrollOver();
 				$scope.$apply();
 			});
-		})
-	})
-	.controller('SessionCtrl', function($scope, $stateParams, Session, SERVER_PATH) {
-		$scope.serverPath = SERVER_PATH;
-		$scope.session = Session.get({
-			sessionId: $stateParams.sessionId
-		});
 
-		$scope.push = function(event) {
-			Notification.push({
-				message: "Check out this session: " + $scope.session.title
-			});
-		}
-
-		$scope.share = function(event) {
-			openFB.api({
-				method: 'POST',
-				path: '/me/feed',
-				params: {
-					message: "I'll be attending: '" + $scope.session.title + "' by " +
-						$scope.session.speaker
-				},
-				success: function() {
-					alert('The session was shared on Facebook');
-				},
-				error: function() {
-					alert('An error occurred while sharing this session on Facebook');
+			$interval(function() {
+				var top = $('.scroll').position().top - 165;
+				if (top > 0) {
+					top = 0;
 				}
-			});
-		};
+				$('#header').css('top', top / 6 + 'px');
+				$('#header .item-logo').css('font-size', 150 + top / 2);
+				$('#header .item-logo-text').css('font-size', 20 + top / 15);
+				$('#header .item-logo-text').css('top', 125 + top / 4);
+				$('#header .item-count-text').css('font-size', 30 + top / 15);
+				$('#header .item-count').css('opacity', 1 + top / 130);
+				$('#header .item-count-text').css('opacity', 1 + top / 65);
+
+				$('.avatar img').each(function() {
+					$(this).height('auto');
+					$(this).width('auto');
+
+					var avaHeight = $(this).height(),
+						avaWidth = $(this).width(),
+						w, h, t, l;
+					if (avaHeight > 0) {
+						if (avaWidth > avaHeight) {
+							w = 40 * avaWidth / avaHeight;
+							h = 40;
+						} else {
+							h = 40 * avaHeight / avaWidth;
+							w = 40;
+						}
+						var t = 20 - h / 2,
+							l = 20 - w / 2;
+						$(this).css({
+							'width': w + 'px',
+							'height': h + 'px',
+							'margin-top': t + 'px',
+							'margin-left': l + 'px',
+						});
+					}
+				});
+			}, 25);
+		});
 	});

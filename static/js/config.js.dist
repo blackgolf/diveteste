@@ -1,4 +1,4 @@
-angular.module('conference.config', [])
+angular.module('startupApp', [])
 	.constant('FB_APP_ID', '932536800093017')
 	.constant('SERVER_PATH', 'http://128.199.146.12:5002')
     //Server path is node JS server path
