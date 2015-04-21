@@ -846,6 +846,10 @@ p {
     background: #000;
 }
 
+.session-item.cloned-item {
+    border: none;
+}
+
 .session-month {
     color: #fff;
     font-size: 30px;
