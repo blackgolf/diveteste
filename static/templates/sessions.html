@@ -25,6 +25,30 @@
 			<div class="item-count-text">Startup Events</div>
 		</div>
 	</ion-item>
+	<ion-item class="item-avatar-left session-item cloned-item" ng-show="detailFull">
+		<div class="session-photo">
+			<img ng-src="{{detailSession.src}}" ng-style="{'width':detailSession.style.width, 'height':detailSession.style.height, 'margin-top':detailSession.style.top, 'margin-left':detailSession.style.left}" img-background>
+		</div>
+		<div class="session-background"></div>
+		<div class="session-background" ng-style="{'background-color': detailSession.backgroundColor}">
+		</div>
+		<div class="session-content">
+			<div class="session-month">
+				{{detailSession.time | amDateFormat:'MMM'}}
+			</div>
+			<div class="session-time">
+				{{detailSession.time | amDateFormat:'h:mm a'}}
+			</div>
+			<div class="session-container">
+				<div class="session-cover">
+					<div class="session-date">{{detailSession.time | amDateFormat:'DD'}}</div>
+					<div class="session-description">{{detailSession.name}}</div>
+				</div>
+			</div>
+			<div class="session-group-name">{{detailSession.group.name}}</div>
+			<div class="session-address">{{detailSession.venue.address_1}}</div>
+		</div>
+	</ion-item>
 	<ion-content class="has-header" style="padding-top: 165px">
 		<ion-list>
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"

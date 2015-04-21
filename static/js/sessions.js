@@ -107,7 +107,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					if (!$scope.detailFull) {
 						$('.floatingContainer').removeClass('notransition');
 					}
-					$ionicScrollDelegate.scrollTo(0, itemTop, true);
+					// $ionicScrollDelegate.scrollTo(0, itemTop, true);
 				} else {
 					$('.floatingContainer').addClass('notransition');
 					$scope.plusCSS = plusBottom(startY - moveY);
