@@ -28,7 +28,7 @@
 	<ion-content class="has-header" style="padding-top: 165px">
 		<ion-list>
 			<ion-item class="item-avatar-left session-item" ng-repeat="session in sessions"
-				ng-click="changeSession(session)">
+				ng-click="changeSession(session)" id="item-{{session.id}}">
 				<div class="session-photo">
 					<img ng-model="session" ng-src="{{session.src}}" ng-style="{'width':session.style.width, 'height':session.style.height, 'margin-top':session.style.top, 'margin-left':session.style.left}" img-background>
 				</div>

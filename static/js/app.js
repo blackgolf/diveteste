@@ -98,7 +98,6 @@ angular.module('conference', ['ionic', 'conference.sessions', 'angularMoment'])
 					.get(PHP_SERVER + '/api.php?api=/2/events&params=group_id:2591172,page:' + 10 + ',offset:' + page * 10 + '&access_token=' + access_token)
 					.success(function(data, status, headers, config) {
 						angular.forEach(data.results, function(value) {
-							console.log(value.id);
 							$http.get(PHP_SERVER + '/api.php?api=/2/rsvps&event_id=' + value.id + '&order=event&rsvp=yes&fields=member_photo&access_token=' + access_token).then(function(response) {
 								value.members = response.data.results;
 							});

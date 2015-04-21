@@ -23,7 +23,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 	.factory('Session', function($resource, SERVER_PATH) {
 		return $resource(SERVER_PATH + '/sessions/:sessionId');
 	})
-	.controller('SessionListCtrl', function($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, $interval, Session, PHP_SERVER, SERVER_PATH, getMeetup) {
+	.controller('SessionListCtrl', function($ionicScrollDelegate, $rootScope, $timeout, $scope, $http, $interval, Session, PHP_SERVER, SERVER_PATH, getMeetup, $ionicScrollDelegate) {
 		$scope.sessions = [];
 		$scope.eventLoading = true;
 		var reHTML = function(string) {
@@ -45,7 +45,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 								} else {
 									session.photo_url = '';
 									session.backgroundColor = 'rgba(0,0,0,0)';
-								//     session.backgroundColor = randomColor(0, index % 3);
+									//     session.backgroundColor = randomColor(0, index % 3);
 								}
 							});
 							page++;
@@ -69,10 +69,12 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				}
 			};
 		loadPage();
-		var startY, endY, moveY, now, down = false,
+		var startY, endY, moveY, now, itemTop,
+			down = false,
 			move = [],
 			dHeight = 240,
-			calculateSwipe = function() {
+			itemHeight = 164;
+		calculateSwipe = function() {
 				$scope.barHeight += startY - moveY;
 				for (i = 0; i < move.length; i++) {
 					if (move[move.length - 1].t - move[i].t < 500) {
@@ -100,27 +102,28 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$('.floatingContainer').removeClass('notransition');
 			},
 			detailMove = function() {
-				if ($scope.barHeight + startY - moveY > $(window).innerHeight()) {
-					detailFull();
-				}
-				$scope.detailCSS = ($scope.barHeight + startY - moveY) + 'px';
-				$scope.detailContentCSS = contentHeight(startY - moveY);
-				if ($scope.barHeight + startY - moveY > $(window).innerHeight() - 15) {
-					if ($scope.plusCSS !== '22px') {
+				if ($scope.barHeight + startY - moveY > $(window).innerHeight() - 15 - itemHeight) {
+					detailFull(true);
+					if (!$scope.detailFull) {
 						$('.floatingContainer').removeClass('notransition');
 					}
-					$scope.plusCSS = '22px';
+					$ionicScrollDelegate.scrollTo(0, itemTop, true);
 				} else {
 					$('.floatingContainer').addClass('notransition');
 					$scope.plusCSS = plusBottom(startY - moveY);
-				};
+				}
+				$scope.detailCSS = ($scope.barHeight + startY - moveY) + 'px';
+				$scope.detailContentCSS = contentHeight(startY - moveY);
 				$scope.$apply();
 			},
-			detailFull = function() {
-				moveY = $scope.barHeight + startY - $(window).innerHeight();
+			detailFull = function(noMove) {
+				moveY = $scope.barHeight + startY - $(window).innerHeight() + itemHeight;
 				$scope.plusCSS = '22px';
 				$scope.detailFull = true;
-				detailMove();
+				down = false;
+				if (!noMove) {
+					detailMove();
+				}
 			},
 			detailClose = function() {
 				$scope.noDetail = true;
@@ -181,6 +184,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 		detailClose();
 
 		$scope.changeSession = function(session) {
+			itemTop = $('#item-' + session.id).position().top + itemHeight;
 			var access_token = localStorage.getItem('access_token');
 			$scope.members = [];
 			if ($scope.detailSession === session && $scope.detailShown) {
