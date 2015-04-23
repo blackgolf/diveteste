@@ -120,7 +120,6 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				moveY = $scope.barHeight + startY - $(window).innerHeight() + itemHeight;
 				$scope.plusCSS = '22px';
 				$scope.detailFull = true;
-				down = false;
 				if (!noMove) {
 					detailMove();
 				}
@@ -180,6 +179,21 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 					i = scheme /* ? scheme : Math.floor(Math.random() * schemeList.length)*/ ,
 					j = index /* ? index : Math.floor(Math.random() * schemeList[i].length)*/ ;
 				return 'rgba(' + schemeList[i][j][0] + ',' + schemeList[i][j][1] + ',' + schemeList[i][j][2] + ',' + 1 + ')';
+			},
+			yPos = function(e) {
+				if (e.originalEvent) {
+					if (e.originalEvent.changedTouches) {
+						if (e.originalEvent.changedTouches[0]) {
+							if (e.originalEvent.changedTouches[0].clientY || e.originalEvent.changedTouches[0].clientY === 0) {
+								return e.originalEvent.changedTouches[0].clientY
+							}
+						}
+					}
+					if (e.originalEvent.clientY) {
+						return e.originalEvent.clientY;
+					}
+				}
+				return 0;
 			};
 		detailClose();
 
@@ -233,7 +247,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 
 			$(window).on('mousemove touchmove', function(e) {
 				if (down) {
-					moveY = e.originalEvent.clientY || e.originalEvent.changedTouches[0].clientY;
+					moveY = yPos(e);
 					if (startY === undefined) {
 						startY = moveY;
 					}
@@ -249,7 +263,7 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 
 			$(window).on('touchend mouseup', function(e) {
 				if (down) {
-					endY = e.originalEvent.clientY || e.originalEvent.changedTouches[0].clientY;
+					endY = yPos(e);
 					calculateSwipe();
 				}
 			});
