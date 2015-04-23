@@ -637,7 +637,21 @@ p {
     bottom: 0;
     box-shadow: 1px 0px 5px 2px rgba(0, 0, 0, 0.2);
     transition: height .61s cubic-bezier(0, .7, .5, 1);
+}
+
+#toolbar .touch-area-container {
+    position: relative;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+#toolbar .touch-area {
+    position: absolute;
     cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
 }
 
 #toolbar h1,

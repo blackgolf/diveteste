@@ -203,7 +203,9 @@ angular.module('conference', ['ionic', 'conference.sessions', 'angularMoment'])
 					});
 				});
 			}
-			img.src = $scope.model.photo_url;
+			if ($scope.model) {
+				img.src = $scope.model.photo_url;
+			}
 		}
 	}
 });;

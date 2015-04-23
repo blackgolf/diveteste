@@ -73,8 +73,8 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			down = false,
 			move = [],
 			dHeight = 240,
-			itemHeight = 164;
-		calculateSwipe = function() {
+			itemHeight = 164,
+			calculateSwipe = function() {
 				$scope.barHeight += startY - moveY;
 				for (i = 0; i < move.length; i++) {
 					if (move[move.length - 1].t - move[i].t < 500) {
@@ -183,6 +183,14 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			};
 		detailClose();
 
+		$scope.touchAreaCSS = function() {
+			if ($scope.detailFull) {
+				return ($('#toolbar .item-thumbnail-left').height() + 40) + 'px';
+			} else {
+				return $scope.detailCSS;
+			}
+		};
+
 		$scope.changeSession = function(session) {
 			itemTop = $('#item-' + session.id).position().top + itemHeight;
 			var access_token = localStorage.getItem('access_token');
@@ -217,21 +225,15 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				$(this).find('.floatingText').removeClass('show');
 			});
 
-			$('#toolbar').on('touchstart', function(e) {
+			$('#toolbar .touch-area').on('touchstart mousedown', function(e) {
 				down = true;
 				$(this).addClass('notransition');
 				$('.floatingContainer').addClass('notransition');
 			});
 
-			$('#toolbar').on('mousedown', function(e) {
-				down = true;
-				$('#toolbar').addClass('notransition');
-				$('.floatingContainer').addClass('notransition');
-			});
-
-			$('ion-pane .item-thumbnail-left').on('touchmove', function(e) {
+			$(window).on('mousemove touchmove', function(e) {
 				if (down) {
-					moveY = e.originalEvent.changedTouches[0].clientY;
+					moveY = e.originalEvent.clientY || e.originalEvent.changedTouches[0].clientY;
 					if (startY === undefined) {
 						startY = moveY;
 					}
@@ -245,32 +247,9 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 				}
 			});
 
-			$('ion-pane .item-thumbnail-left').on('mousemove', function(e) {
+			$(window).on('touchend mouseup', function(e) {
 				if (down) {
-					moveY = e.originalEvent.clientY;
-					if (startY === undefined) {
-						startY = moveY;
-					}
-					move.push({
-						y: moveY,
-						t: e.timeStamp
-					});
-					now = new Date();
-					$scope.detailFull = false;
-					detailMove();
-				}
-			});
-
-			$('#toolbar').on('touchend', function(e) {
-				if (down) {
-					endY = e.originalEvent.changedTouches[0].clientY;
-					calculateSwipe();
-				}
-			});
-
-			$('#toolbar').on('mouseup', function(e) {
-				if (down) {
-					endY = e.originalEvent.clientY;
+					endY = e.originalEvent.clientY || e.originalEvent.changedTouches[0].clientY;
 					calculateSwipe();
 				}
 			});
