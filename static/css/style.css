@@ -636,7 +636,6 @@ p {
     padding: 0 16px;
     bottom: 0;
     box-shadow: 1px 0px 5px 2px rgba(0, 0, 0, 0.2);
-    transition: height .61s cubic-bezier(0, .7, .5, 1);
 }
 
 #toolbar .touch-area-container {
