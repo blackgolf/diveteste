@@ -209,6 +209,9 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 			itemTop = $('#item-' + session.id).position().top + itemHeight;
 			var access_token = localStorage.getItem('access_token');
 			$scope.members = [];
+			$('#toolbar .item-body > p').animate({
+				scrollTop: 0
+			}, 300);
 			if ($scope.detailSession === session && $scope.detailShown) {
 				$('#toolbar').removeClass('notransition');
 				$('.floatingContainer').removeClass('notransition');
