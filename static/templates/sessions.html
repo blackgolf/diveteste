@@ -142,4 +142,8 @@
 		</div>
 	</div>
 </div>
-
+<ul class="preload-image">
+	<li ng-repeat="(key, value) in allMemberPhotos track by $index">
+		<img ng-src="{{value}}">
+	</li>
+</ul>

@@ -45,9 +45,9 @@ angular.module('conference.sessions', ['ngResource', 'conference.config', 'confe
 								} else {
 									session.photo_url = '';
 									session.backgroundColor = 'rgba(0,0,0,0)';
-									//     session.backgroundColor = randomColor(0, index % 3);
 								}
 							});
+							console.log($scope.members);
 							page++;
 							$scope.eventLoading = false;
 						} else {

@@ -100,6 +100,10 @@ angular.module('conference', ['ionic', 'conference.sessions', 'angularMoment'])
 						angular.forEach(data.results, function(value) {
 							$http.get(PHP_SERVER + '/api.php?api=/2/rsvps&event_id=' + value.id + '&order=event&rsvp=yes&fields=member_photo&access_token=' + access_token).then(function(response) {
 								value.members = response.data.results;
+								for (var i = 0; i < value.members.length && i < 6; i++) {
+									$rootScope.allMemberPhotos.push(value.members[i].member_photo.photo_link);
+								}
+								console.log($rootScope.allMemberPhotos);
 							});
 						});
 
@@ -108,7 +112,6 @@ angular.module('conference', ['ionic', 'conference.sessions', 'angularMoment'])
 						}
 						$rootScope.events = $rootScope.events.concat(data.results);
 						def.resolve(data);
-
 					})
 					.error(function(data, status, headers, config) {
 						def.resolve();
@@ -123,6 +126,7 @@ angular.module('conference', ['ionic', 'conference.sessions', 'angularMoment'])
 
 .controller('AppCtrl', function($rootScope, $scope, $http, $resource, $ionicModal, $ionicScrollDelegate, $timeout, Meetup, getMeetup, CLIENT_PATH, MEETUP_KEY, MEETUP_SECRET, PHP_SERVER, SERVER_PATH) {
 	$scope.loading = true;
+	$rootScope.allMemberPhotos = [];
 	$scope.middleHeight = function() {
 		return ($(window).innerHeight() / 2 - 50) + 'px';
 	};
